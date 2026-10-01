@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using server.Data;
 using server.Services;
+using Scalar.AspNetCore;
 
 
 
@@ -11,8 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //Add Ef core plus SQLite
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=devshelf.db";
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=devshelf.db"));
+    options.UseSqlite(connectionString));
 
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<AuthService>();
@@ -41,6 +43,22 @@ builder.Services.AddAuthentication("Bearer")
             ClockSkew = TimeSpan.Zero
         };
     });
+// Add CORS to allow frontend requests
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+                  "http://localhost:5173",
+                  "http://localhost:5174",
+                  "http://localhost:5175",
+                  "http://localhost:3000"
+              )
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -53,13 +71,18 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
-app.UseHttpsRedirection();
-
 
 app.Run();
 

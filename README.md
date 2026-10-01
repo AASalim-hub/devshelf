@@ -1,70 +1,57 @@
 # DevShelf 🗂️
 
-> Your personal developer command center. Save snippets, bookmark resources, track tasks — all in one place, built by a developer for developers.
+> A developer learning application and personal resource shelf. Save, organize, and access your developer bookmarks, documentation links, and learning materials — all backed by a clean REST API.
 
-![DevShelf Dashboard Preview](https://img.shields.io/badge/status-in%20development-yellow?style=flat-square)
-![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react)
-![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square&logo=dotnet)
+![Status](https://img.shields.io/badge/status-active%20learning%20project-brightgreen?style=flat-square)
+![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet)
+![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=flat-square&logo=sqlite)
+![OpenAPI](https://img.shields.io/badge/OpenAPI-Scalar-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)
 
 ---
 
-## The Problem
+## Overview & Teaching Purpose
 
-Every developer has the same chaos:
-
-- Code snippets scattered across random `.txt` files and Slack messages to yourself
-- Browser bookmarks folder with 300 links you'll "read later" and never find again
-- Tasks split between 3 different apps none of which understand developer workflow
-- No single place that connects your *resources*, *knowledge*, and *work*
-
-**DevShelf fixes this.** One app, built on your own stack, that you own completely and can extend however you want.
+**DevShelf** is an engineering and teaching project designed to help students master:
+1. **REST APIs & HTTP fundamentals** (Methods, URLs, Headers, Status Codes, Request/Response Bodies).
+2. **Interactive API Documentation** (Exploring endpoints via Scalar / OpenAPI).
+3. **API Testing with Postman** (Testing endpoints, authentication flows, and payloads without relying on complex test scripts).
+4. **JWT Authentication & Authorization** (Register, Login, Token generation, and accessing protected endpoints).
+5. **Consuming APIs from a React frontend** (Axios instances, interceptors, authentication state context, and CRUD operations).
 
 ---
 
 ## Features
 
-### MVP (v1.0)
-- 🔐 **Authentication** — JWT-based register and login with protected routes
-- 📋 **Code Snippets** — Save, tag, search, and copy reusable code in any language with syntax highlighting
-- 🔖 **Resources** — Bookmark articles, docs, tools, and videos with notes and tags
-- ✅ **Tasks** — Developer-focused todo board with project grouping and priority levels
-- 📊 **Dashboard** — Activity overview, stats, recent items, and quick-add actions
-- 🌙 **Dark / Light mode** — Persisted to localStorage
-
-### Roadmap (v2.0+)
-- 🤖 AI-powered auto-tagging via OpenAI API
-- 🔗 Browser extension — save current page directly to Resources
-- 💻 VS Code extension — save selected code directly to Snippets
-- 🐙 GitHub Gists sync — pull your gists into Snippets automatically
-- 👥 Team workspaces — share snippets and resources with your team
-- 📱 Mobile app — React Native port
-- 🤖 Slack / Discord bot integration
+- 🔐 **Authentication & Authorization** — User registration and login with BCrypt password hashing and signed JWT tokens.
+- 👤 **Protected User Profile** — Secure `/api/profile` endpoint extracting user identity and claims from JWT tokens.
+- 🔖 **Developer Resources CRUD** — Bookmark and manage developer links (articles, documentation, tools, tutorials).
+- 📋 **Code Snippets CRUD** — Save and retrieve reusable code snippets with language tagging and searchable notes.
+- ✅ **Developer Tasks CRUD** — Manage personal dev tasks with status (`todo`, `in-progress`, `done`), priority, and project grouping.
+- 📖 **Interactive API Documentation** — Built-in visual API explorer powered by Scalar at `/scalar/v1`.
+- 🩺 **Health Check** — `/api/health` endpoint to quickly verify backend status.
 
 ---
 
 ## Tech Stack
 
-### Frontend
-| Technology | Purpose |
-|---|---|
-| React 18 | UI library |
-| Vite | Build tool and dev server |
-| React Router v6 | Client-side routing |
-| Axios | HTTP client with interceptors |
-| react-syntax-highlighter | Code snippet display |
-| CSS Modules / Tailwind | Styling |
-
 ### Backend
 | Technology | Purpose |
 |---|---|
-| ASP.NET Core 8 Web API | REST API |
-| Entity Framework Core | ORM and migrations |
-| SQLite | Development database |
-| PostgreSQL | Production database |
-| BCrypt.Net | Password hashing |
-| JWT Bearer | Authentication tokens |
+| ASP.NET Core 10 Web API | REST API framework |
+| Entity Framework Core 10 | ORM & database migrations |
+| SQLite (`devshelf.db`) | Local development database |
+| BCrypt.Net-Next | Secure password hashing |
+| JWT Bearer Authentication | Token-based auth & claims |
+| Scalar OpenAPI | Modern interactive API documentation |
+
+### Frontend (To be built by students)
+| Technology | Purpose |
+|---|---|
+| React 19 + Vite | Component-based UI library & fast build tool |
+| React Router | Client-side routing with protected routes |
+| Axios | HTTP client with request interceptors for Bearer tokens |
+| Context API | Global authentication and session state management |
 
 ---
 
@@ -72,77 +59,43 @@ Every developer has the same chaos:
 
 ```
 devshelf/
-├── client/                         # React frontend (Vite)
-│   ├── public/
-│   ├── src/
-│   │   ├── api/
-│   │   │   └── axios.js            # Axios instance + JWT interceptor
-│   │   ├── components/
-│   │   │   ├── common/             # Button, Modal, Spinner, EmptyState
-│   │   │   ├── layout/             # Layout, Navbar, Sidebar
-│   │   │   ├── snippets/           # SnippetCard, SnippetForm, SnippetDetail
-│   │   │   ├── resources/          # ResourceCard, ResourceForm
-│   │   │   └── tasks/              # TaskCard, TaskForm, KanbanBoard
-│   │   ├── hooks/
-│   │   │   ├── useAuth.js          # Auth state + login/logout/register
-│   │   │   ├── useFetch.js         # Generic data fetching with loading/error
-│   │   │   ├── useSnippets.js      # Snippets CRUD operations
-│   │   │   ├── useResources.js     # Resources CRUD operations
-│   │   │   └── useTasks.js         # Tasks CRUD operations
-│   │   ├── pages/
-│   │   │   ├── LoginPage.jsx
-│   │   │   ├── RegisterPage.jsx
-│   │   │   ├── DashboardPage.jsx
-│   │   │   ├── SnippetsPage.jsx
-│   │   │   ├── SnippetDetailPage.jsx
-│   │   │   ├── ResourcesPage.jsx
-│   │   │   └── TasksPage.jsx
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx     # Global auth state via Context API
-│   │   ├── utils/
-│   │   │   ├── auth.js             # JWT decode, token storage helpers
-│   │   │   └── formatters.js       # Date, truncate, language label helpers
-│   │   ├── App.jsx                 # Routes + Layout wiring
-│   │   └── main.jsx                # Entry point + BrowserRouter
-│   ├── index.html
-│   ├── vite.config.js
-│   └── package.json
-│
-├── server/                         # ASP.NET Core backend
+├── server/                         # ASP.NET Core Web API backend
 │   ├── Controllers/
-│   │   ├── AuthController.cs       # POST /auth/register, /auth/login
-│   │   ├── SnippetsController.cs   # CRUD /api/snippets
-│   │   ├── ResourcesController.cs  # CRUD /api/resources
-│   │   ├── TasksController.cs      # CRUD /api/tasks
-│   │   └── DashboardController.cs  # GET /api/dashboard/stats
+│   │   ├── AuthController.cs       # POST /api/auth/register, POST /api/auth/login
+│   │   ├── HealthController.cs     # GET /api/health
+│   │   ├── ProfileController.cs    # GET /api/profile (Protected)
+│   │   ├── ResourcesController.cs  # Full CRUD /api/resources (Protected)
+│   │   ├── SnippetsController.cs   # Full CRUD /api/snippets (Protected)
+│   │   └── TasksController.cs      # Full CRUD /api/tasks (Protected) + PATCH /status
 │   ├── Models/
-│   │   ├── User.cs
-│   │   ├── Snippet.cs
-│   │   ├── Resource.cs
-│   │   └── DevTask.cs
+│   │   ├── User.cs                 # User entity
+│   │   ├── Resource.cs             # Developer bookmark entity
+│   │   ├── Snippet.cs              # Code snippet entity
+│   │   └── DevTask.cs              # Developer task entity
 │   ├── DTOs/
-│   │   ├── Auth/
-│   │   │   ├── LoginDto.cs
-│   │   │   ├── RegisterDto.cs
-│   │   │   └── AuthResponseDto.cs
-│   │   ├── SnippetDto.cs
-│   │   ├── ResourceDto.cs
-│   │   └── TaskDto.cs
+│   │   ├── Auth/                   # LoginDto, RegisterDto, AuthResponseDto, ProfileResponseDto
+│   │   ├── Resources/              # CreateResourceDto, UpdateResourceDto, ResourceResponseDto
+│   │   ├── Snippets/               # CreateSnippetDto, UpdateSnippetDto, SnippetResponseDto
+│   │   └── Tasks/                  # CreateTaskDto, UpdateTaskDto, UpdateTaskStatusDto, TaskResponseDto
 │   ├── Services/
-│   │   ├── AuthService.cs
-│   │   └── JwtService.cs
+│   │   ├── AuthService.cs          # Register & Login business logic
+│   │   └── JwtService.cs           # Token creation & claim configuration
 │   ├── Data/
-│   │   └── AppDbContext.cs
-│   ├── Middleware/
-│   │   └── JwtMiddleware.cs
-│   ├── Migrations/
+│   │   └── AppDbContext.cs         # EF Core DbContext (Users, Resources, Snippets, Tasks)
+│   ├── Migrations/                 # EF Core SQLite schema migrations
+│   ├── Properties/
+│   │   └── launchSettings.json     # Local dev server ports (HTTP: 5259)
 │   ├── appsettings.json
 │   ├── appsettings.Development.json
-│   └── Program.cs
+│   ├── Program.cs                  # Dependency Injection & middleware pipeline
+│   └── server.http                 # Ready-to-run REST Client requests (20 endpoints)
 │
-├── .gitignore
-├── .env.example
-└── README.md
+├── README.md                       # Main project overview
+├── BACKEND_SETUP_GUIDE.md          # Step-by-step setup guide from fork to run
+├── API_DOCUMENTATION.md            # Complete REST API specification
+├── POSTMAN_GUIDE.md                # Step-by-step Postman testing guide (no scripts)
+├── FRONTEND_BUILD_GUIDE.md         # Comprehensive React + Axios frontend build guide
+└── DEVSERVER_FLOW_GUIDE.md         # Deep-dive backend architecture explanation
 ```
 
 ---
@@ -151,8 +104,9 @@ devshelf/
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v18+
-- [.NET SDK](https://dotnet.microsoft.com/download) 8.0+
+- [.NET SDK 10.0](https://dotnet.microsoft.com/download)
+- [Postman](https://www.postman.com/downloads/) (for API testing)
+- [Node.js v18+](https://nodejs.org/) (for frontend development)
 - [Git](https://git-scm.com/)
 
 ### 1. Clone the repository
@@ -162,7 +116,7 @@ git clone https://github.com/YOUR_USERNAME/devshelf.git
 cd devshelf
 ```
 
-### 2. Set up the backend
+### 2. Run the Backend API
 
 ```bash
 cd server
@@ -170,256 +124,292 @@ cd server
 # Restore dependencies
 dotnet restore
 
-# Copy environment config
-cp appsettings.Development.json.example appsettings.Development.json
-# Edit appsettings.Development.json — add your JWT secret key
-
-# Run database migrations
+# Apply database migrations (creates/updates SQLite devshelf.db)
 dotnet ef database update
 
-# Start the API server (runs on https://localhost:7001)
+# Start the API server (runs on http://localhost:5259)
 dotnet run
 ```
 
-### 3. Set up the frontend
+### 3. Open Interactive API Documentation
 
-```bash
-cd client
+Once the server is running, open your browser and navigate to:
 
-# Install dependencies
-npm install
+👉 **`http://localhost:5259/scalar/v1`**
 
-# Copy environment config
-cp .env.example .env
-# Edit .env — set VITE_API_URL=https://localhost:7001
-
-# Start the dev server (runs on http://localhost:5173)
-npm run dev
-```
-
-### 4. Open the app
-
-Navigate to `http://localhost:5173` — register an account and you're in.
+Here you can visually browse all endpoints, view request/response schemas, and understand the API contract before opening Postman.
 
 ---
 
 ## API Reference
 
-### Authentication
+### 1. Health
 
 | Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/auth/register` | Create new account | No |
-| POST | `/auth/login` | Login, returns JWT | No |
+|---|---|---|---|
+| `GET` | `/api/health` | Server status and version | No |
 
-### Snippets
+---
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/snippets` | Get all user snippets | Yes |
-| GET | `/api/snippets/:id` | Get single snippet | Yes |
-| POST | `/api/snippets` | Create snippet | Yes |
-| PUT | `/api/snippets/:id` | Update snippet | Yes |
-| DELETE | `/api/snippets/:id` | Delete snippet | Yes |
-
-### Resources
+### 2. Authentication
 
 | Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/resources` | Get all user resources | Yes |
-| GET | `/api/resources/:id` | Get single resource | Yes |
-| POST | `/api/resources` | Create resource | Yes |
-| PUT | `/api/resources/:id` | Update resource | Yes |
-| DELETE | `/api/resources/:id` | Delete resource | Yes |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | Register a new user | No |
+| `POST` | `/api/auth/login` | Login and receive a signed JWT token | No |
 
-### Tasks
+**Register Request Body:**
+```json
+{
+  "userName": "alex",
+  "email": "alex@example.com",
+  "password": "Password123!"
+}
+```
+
+**Login Request Body:**
+```json
+{
+  "email": "alex@example.com",
+  "password": "Password123!"
+}
+```
+
+**Login Response:**
+```json
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userName": "alex",
+  "email": "alex@example.com",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+---
+
+### 3. Profile
 
 | Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/tasks` | Get all user tasks | Yes |
-| GET | `/api/tasks/:id` | Get single task | Yes |
-| POST | `/api/tasks` | Create task | Yes |
-| PUT | `/api/tasks/:id` | Update task | Yes |
-| PATCH | `/api/tasks/:id/status` | Update task status only | Yes |
-| DELETE | `/api/tasks/:id` | Delete task | Yes |
+|---|---|---|---|
+| `GET` | `/api/profile` | Get logged-in user profile claims | **Yes** (Bearer Token) |
 
-### Dashboard
+**Required Header:**
+```text
+Authorization: Bearer <your_jwt_token_here>
+```
+
+---
+
+### 4. Resources (Developer Bookmarks)
+
+All Resource endpoints require the `Authorization: Bearer <token>` header and are scoped to the authenticated user.
 
 | Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/dashboard/stats` | Summary stats + recent items | Yes |
+|---|---|---|---|
+| `GET` | `/api/resources` | Get all resources for the logged-in user | **Yes** |
+| `GET` | `/api/resources/{id}` | Get a single resource by its GUID | **Yes** |
+| `POST` | `/api/resources` | Create a new developer resource | **Yes** |
+| `PUT` | `/api/resources/{id}` | Update an existing resource | **Yes** |
+| `DELETE` | `/api/resources/{id}` | Delete a resource | **Yes** |
+
+**Create Resource Request Body (`POST /api/resources`):**
+```json
+{
+  "title": "React 19 Official Documentation",
+  "url": "https://react.dev",
+  "notes": "Guide for React Server Components and Actions",
+  "type": "docs"
+}
+```
+
+**Resource Response Body:**
+```json
+{
+  "id": "1777e760-6f6b-4803-b895-5baff53b8588",
+  "title": "React 19 Official Documentation",
+  "url": "https://react.dev",
+  "notes": "Guide for React Server Components and Actions",
+  "type": "docs",
+  "userId": "f79936ff-969f-4f7e-af15-f21bde343003",
+  "createdAt": "2026-10-01T20:25:14.595Z",
+  "updatedAt": null
+}
+```
+
+---
+
+### 5. Snippets (Reusable Code)
+
+All Snippet endpoints require the `Authorization: Bearer <token>` header and are scoped to the authenticated user.
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `GET` | `/api/snippets` | Get all snippets for the logged-in user | **Yes** |
+| `GET` | `/api/snippets/{id}` | Get a single snippet by its GUID | **Yes** |
+| `POST` | `/api/snippets` | Create a new code snippet | **Yes** |
+| `PUT` | `/api/snippets/{id}` | Update an existing snippet | **Yes** |
+| `DELETE` | `/api/snippets/{id}` | Delete a snippet | **Yes** |
+
+**Create Snippet Request Body (`POST /api/snippets`):**
+```json
+{
+  "title": "EF Core SQLite Setup",
+  "description": "Register AppDbContext with SQLite in Program.cs",
+  "code": "builder.Services.AddDbContext<AppDbContext>(options =>\n    options.UseSqlite(\"Data Source=devshelf.db\"));",
+  "language": "csharp",
+  "tags": "dotnet,efcore,sqlite"
+}
+```
+
+**Snippet Response Body:**
+```json
+{
+  "id": "f57836d3-6194-4813-afa4-d0eae5831968",
+  "title": "EF Core SQLite Setup",
+  "description": "Register AppDbContext with SQLite in Program.cs",
+  "code": "builder.Services.AddDbContext<AppDbContext>...",
+  "language": "csharp",
+  "tags": "dotnet,efcore,sqlite",
+  "userId": "f79936ff-969f-4f7e-af15-f21bde343003",
+  "createdAt": "2026-10-01T20:33:10.000Z",
+  "updatedAt": null
+}
+```
+
+---
+
+### 6. Tasks (Developer To-Do List)
+
+All Task endpoints require the `Authorization: Bearer <token>` header and are scoped to the authenticated user.
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `GET` | `/api/tasks` | Get all tasks for the logged-in user | **Yes** |
+| `GET` | `/api/tasks?status=todo` | Filter tasks by status | **Yes** |
+| `GET` | `/api/tasks/{id}` | Get a single task by its GUID | **Yes** |
+| `POST` | `/api/tasks` | Create a new task | **Yes** |
+| `PUT` | `/api/tasks/{id}` | Update a task (all fields) | **Yes** |
+| `PATCH` | `/api/tasks/{id}/status` | Update only the task status | **Yes** |
+| `DELETE` | `/api/tasks/{id}` | Delete a task | **Yes** |
+
+**Create Task Request Body (`POST /api/tasks`):**
+```json
+{
+  "title": "Build React frontend",
+  "description": "Scaffold Vite app, set up Axios and AuthContext",
+  "status": "todo",
+  "priority": "high",
+  "project": "DevShelf"
+}
+```
+
+**Update Status Request Body (`PATCH /api/tasks/{id}/status`):**
+```json
+{
+  "status": "in-progress"
+}
+```
+
+**Task Response Body:**
+```json
+{
+  "id": "a4b6ebd1-358c-4961-a170-e77b20f1f0e5",
+  "title": "Build React frontend",
+  "description": "Scaffold Vite app, set up Axios and AuthContext",
+  "status": "todo",
+  "priority": "high",
+  "project": "DevShelf",
+  "dueDate": null,
+  "userId": "f79936ff-969f-4f7e-af15-f21bde343003",
+  "createdAt": "2026-10-01T20:33:20.000Z",
+  "updatedAt": null
+}
+```
 
 ---
 
 ## Data Models
 
-### User
+### User Entity
 ```json
 {
-  "id": "uuid",
-  "username": "string",
+  "id": "Guid",
+  "userName": "string",
   "email": "string",
-  "passwordHash": "string",
-  "createdAt": "datetime"
+  "passwordHash": "string (never exposed in responses)",
+  "createdAt": "DateTime"
 }
 ```
 
-### Snippet
+### Resource Entity
 ```json
 {
-  "id": "uuid",
-  "title": "string",
-  "description": "string",
-  "code": "string",
-  "language": "string",
-  "tags": ["string"],
-  "userId": "uuid",
-  "createdAt": "datetime",
-  "updatedAt": "datetime"
-}
-```
-
-### Resource
-```json
-{
-  "id": "uuid",
+  "id": "Guid",
   "title": "string",
   "url": "string",
-  "notes": "string",
-  "type": "article | video | tool | docs | other",
-  "tags": ["string"],
-  "userId": "uuid",
-  "createdAt": "datetime"
+  "notes": "string | null",
+  "type": "string (article | video | tool | docs | other)",
+  "userId": "Guid",
+  "createdAt": "DateTime",
+  "updatedAt": "DateTime | null"
 }
 ```
 
-### Task
+### Snippet Entity
 ```json
 {
-  "id": "uuid",
+  "id": "Guid",
   "title": "string",
-  "description": "string",
-  "status": "todo | in-progress | done",
-  "priority": "low | medium | high",
-  "project": "string",
-  "dueDate": "datetime | null",
-  "userId": "uuid",
-  "createdAt": "datetime",
-  "updatedAt": "datetime"
+  "description": "string | null",
+  "code": "string",
+  "language": "string (csharp | javascript | typescript | python | sql | plaintext | ...)",
+  "tags": "string | null (comma-separated)",
+  "userId": "Guid",
+  "createdAt": "DateTime",
+  "updatedAt": "DateTime | null"
 }
 ```
 
----
-
-## Environment Variables
-
-### Frontend (`client/.env`)
-```env
-VITE_API_URL=https://localhost:7001
-```
-
-### Backend (`server/appsettings.Development.json`)
+### DevTask Entity
 ```json
 {
-  "Jwt": {
-    "Key": "your-super-secret-key-min-32-chars",
-    "Issuer": "devshelf-api",
-    "Audience": "devshelf-client",
-    "ExpiryDays": 7
-  },
-  "ConnectionStrings": {
-    "DefaultConnection": "Data Source=devshelf.db"
-  }
+  "id": "Guid",
+  "title": "string",
+  "description": "string | null",
+  "status": "string (todo | in-progress | done)",
+  "priority": "string (low | medium | high)",
+  "project": "string | null",
+  "dueDate": "DateTime | null",
+  "userId": "Guid",
+  "createdAt": "DateTime",
+  "updatedAt": "DateTime | null"
 }
 ```
 
 ---
 
-## Build Roadmap
+## Learning Sequence for Students
 
-### ✅ Sprint 1 — Auth Foundation
-- [ ] .NET project scaffold with EF Core + SQLite
-- [ ] User model + AppDbContext
-- [ ] POST /auth/register with BCrypt password hashing
-- [ ] POST /auth/login returning signed JWT
-- [ ] React project scaffold with Vite
-- [ ] AuthContext + useAuth hook
-- [ ] Login page with form validation
-- [ ] Register page with form validation
-- [ ] Axios instance with JWT interceptor
-- [ ] ProtectedRoute component
-- [ ] React Router setup with protected and public routes
-
-### 🔲 Sprint 2 — Snippets
-- [ ] Snippet model + migration
-- [ ] SnippetsController full CRUD
-- [ ] Snippets list page with search and language filter
-- [ ] Snippet detail page (`/snippets/:id`)
-- [ ] Add/edit snippet modal with form
-- [ ] Syntax highlighting display
-- [ ] Copy to clipboard button
-- [ ] Tag filter UI
-
-### 🔲 Sprint 3 — Resources + Tasks
-- [ ] Resource model + migration
-- [ ] ResourcesController full CRUD
-- [ ] Resources list page with type and tag filter
-- [ ] Task model + migration
-- [ ] TasksController full CRUD + PATCH status
-- [ ] Tasks board with status columns
-- [ ] Priority badges
-- [ ] Project grouping
-
-### 🔲 Sprint 4 — Dashboard + Polish
-- [ ] DashboardController stats endpoint
-- [ ] Dashboard page with live stats
-- [ ] Loading skeleton states
-- [ ] Consistent empty states
-- [ ] Dark / light mode toggle
-- [ ] Toast notifications for actions
-- [ ] Responsive layout for mobile
-
----
-
-## Contributing
-
-This is a personal productivity project but PRs and suggestions are welcome.
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature-name`
-3. Commit your changes: `git commit -m 'feat: add your feature'`
-4. Push to the branch: `git push origin feature/your-feature-name`
-5. Open a Pull Request
-
-### Commit Convention
-
-This project uses [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-feat:     new feature
-fix:      bug fix
-docs:     documentation changes
-style:    formatting, no logic change
-refactor: code restructure, no feature change
-chore:    dependencies, config, tooling
-```
+Students should follow this sequence:
+1. **Fork & Clone** the repository.
+2. **Run the Backend** (`dotnet run`) and inspect startup messages.
+3. **Open Scalar** at `http://localhost:5259/scalar/v1` to explore all endpoints and HTTP contracts.
+4. **Use Postman** to test the API step-by-step:
+   - Check `/api/health`.
+   - Send `POST` to `/api/auth/register` with a JSON body.
+   - Send `POST` to `/api/auth/login` and copy the JWT token from the response.
+   - Paste the token into the `Authorization: Bearer` header to access `/api/profile`.
+   - Practice CRUD on `/api/resources`, `/api/snippets`, and `/api/tasks`.
+   - Test the `PATCH /api/tasks/{id}/status` endpoint to update only the task status.
+5. **Build the React Frontend**:
+   - Scaffold a Vite React app in `client/`.
+   - Configure Axios with the base URL and a request interceptor to attach the Bearer token.
+   - Implement Register, Login, and main data pages (Resources, Snippets, Tasks).
+   - Use React Context to manage global authentication state.
+   - Add protected routes that redirect unauthenticated users to the login page.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
-
----
-
-## Author
-
-Built by a developer who got tired of losing good snippets to the void.
-
-> *"The best tool is the one you actually use."*
-
----
-
-<p align="center">
-  <sub>Start with Sprint 1. Ship something real.</sub>
-</p>
+MIT

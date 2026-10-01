@@ -1,6 +1,219 @@
 @server_HostAddress = http://localhost:5259
+@token = YOUR_JWT_TOKEN_HERE
+@resourceId = YOUR_RESOURCE_ID_HERE
+@snippetId = YOUR_SNIPPET_ID_HERE
+@taskId = YOUR_TASK_ID_HERE
 
-GET {{server_HostAddress}}/weatherforecast/
+### 1. Health Check
+GET {{server_HostAddress}}/api/health
 Accept: application/json
+
+###
+
+### 2. Register New User
+POST {{server_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "userName": "alex",
+  "email": "alex@example.com",
+  "password": "Password123!"
+}
+
+###
+
+### 3. Login User (Copy the token from the response into @token above)
+POST {{server_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alex@example.com",
+  "password": "Password123!"
+}
+
+###
+
+### 4. Get Current User Profile (Protected)
+GET {{server_HostAddress}}/api/profile
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+# ─────────────────────────────────────────────────────────────────────────────
+# RESOURCES  (Developer Bookmarks)
+# ─────────────────────────────────────────────────────────────────────────────
+
+### 5. Create a Resource (Protected)
+POST {{server_HostAddress}}/api/resources
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "React Documentation",
+  "url": "https://react.dev",
+  "notes": "Official guide for React 19 features and hooks",
+  "type": "docs"
+}
+
+###
+
+### 6. Get All My Resources (Protected)
+GET {{server_HostAddress}}/api/resources
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### 7. Get Single Resource by ID (Protected — paste an ID from step 6 into @resourceId)
+GET {{server_HostAddress}}/api/resources/{{resourceId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### 8. Update Resource by ID (Protected)
+PUT {{server_HostAddress}}/api/resources/{{resourceId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "React 19 Official Documentation",
+  "url": "https://react.dev/learn",
+  "notes": "Updated: covers React 19 compiler, actions, and server components",
+  "type": "docs"
+}
+
+###
+
+### 9. Delete Resource by ID (Protected)
+DELETE {{server_HostAddress}}/api/resources/{{resourceId}}
+Authorization: Bearer {{token}}
+
+###
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SNIPPETS  (Reusable Code Snippets)
+# ─────────────────────────────────────────────────────────────────────────────
+
+### 10. Create a Snippet (Protected)
+POST {{server_HostAddress}}/api/snippets
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "EF Core SQLite Setup",
+  "description": "Register AppDbContext with SQLite in Program.cs",
+  "code": "builder.Services.AddDbContext<AppDbContext>(options =>\n    options.UseSqlite(\"Data Source=devshelf.db\"));",
+  "language": "csharp",
+  "tags": "dotnet,efcore,sqlite"
+}
+
+###
+
+### 11. Get All My Snippets (Protected)
+GET {{server_HostAddress}}/api/snippets
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### 12. Get Single Snippet by ID (Protected — paste an ID from step 11 into @snippetId)
+GET {{server_HostAddress}}/api/snippets/{{snippetId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### 13. Update Snippet by ID (Protected)
+PUT {{server_HostAddress}}/api/snippets/{{snippetId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "EF Core SQLite Setup (Updated)",
+  "description": "Updated setup with environment-based connection string",
+  "code": "var conn = builder.Configuration.GetConnectionString(\"Default\");\nbuilder.Services.AddDbContext<AppDbContext>(o => o.UseSqlite(conn));",
+  "language": "csharp",
+  "tags": "dotnet,efcore"
+}
+
+###
+
+### 14. Delete Snippet by ID (Protected)
+DELETE {{server_HostAddress}}/api/snippets/{{snippetId}}
+Authorization: Bearer {{token}}
+
+###
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TASKS  (Developer Task List)
+# ─────────────────────────────────────────────────────────────────────────────
+
+### 15. Create a Task (Protected)
+POST {{server_HostAddress}}/api/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Build React frontend",
+  "description": "Scaffold Vite app, set up Axios and AuthContext",
+  "status": "todo",
+  "priority": "high",
+  "project": "DevShelf"
+}
+
+###
+
+### 16. Get All My Tasks (Protected — optionally filter by status)
+GET {{server_HostAddress}}/api/tasks
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### 16b. Get Tasks filtered by status (Protected)
+GET {{server_HostAddress}}/api/tasks?status=todo
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### 17. Get Single Task by ID (Protected — paste an ID from step 16 into @taskId)
+GET {{server_HostAddress}}/api/tasks/{{taskId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### 18. Update Task Status only — PATCH (Protected)
+PATCH {{server_HostAddress}}/api/tasks/{{taskId}}/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "in-progress"
+}
+
+###
+
+### 19. Update Full Task — PUT (Protected)
+PUT {{server_HostAddress}}/api/tasks/{{taskId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Build React frontend & Axios service",
+  "description": "Scaffold Vite app, configure Axios, implement AuthContext and protected routes",
+  "status": "done",
+  "priority": "high",
+  "project": "DevShelf"
+}
+
+###
+
+### 20. Delete Task by ID (Protected)
+DELETE {{server_HostAddress}}/api/tasks/{{taskId}}
+Authorization: Bearer {{token}}
 
 ###
