@@ -24,7 +24,7 @@ function NavBar() {
       <span> | </span>
 
       <NavLink 
-        to="/snippets" 
+        to="/snippet" 
         style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
       >
         Snippets
@@ -33,7 +33,7 @@ function NavBar() {
       <span> | </span>
 
       <NavLink 
-        to="/tasks" 
+        to="/task" 
         style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
       >
        Tasks

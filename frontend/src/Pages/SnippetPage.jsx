@@ -1,4 +1,4 @@
-function SnippetPages() {
+function SnippetPage() {
     return(
     <>
     <h1>Snippets Page</h1>
@@ -6,4 +6,4 @@ function SnippetPages() {
     );
 }
 
-export default SnippetPages
+export default SnippetPage

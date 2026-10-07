@@ -1,4 +1,4 @@
-function TasksPages() {
+function TaskPage() {
     return(
         <>
         <h1>Tasks Page</h1>
@@ -6,4 +6,4 @@ function TasksPages() {
     );
 }
 
-export default TasksPages
+export default TaskPage
