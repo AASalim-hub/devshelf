@@ -2,7 +2,7 @@ import React from 'react';
 // 1. Import NavLink instead of Link
 import { NavLink } from 'react-router-dom';
 
-function NavBar() {
+function SideBar() {
   return (
     <nav>
       <NavLink 
@@ -60,4 +60,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default SideBar;
