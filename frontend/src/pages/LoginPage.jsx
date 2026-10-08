@@ -3,7 +3,7 @@ function LoginPage() {
     return(
         <>
         <h1>Login Page</h1>
-        <Button>Login</Button>
+        <Button variant="primary">Login</Button>
         </>
     );
 }
