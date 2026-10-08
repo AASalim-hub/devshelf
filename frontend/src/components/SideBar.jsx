@@ -1,62 +1,55 @@
-import React from 'react';
-// 1. Import NavLink instead of Link
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import "./SideBar.css";
 
 function SideBar() {
   return (
-    <nav>
-      <NavLink 
-        to="/" 
-        style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
-      >
-        Dashboard
-      </NavLink> 
-      
-      <span> | </span>
+    <aside className="sidebar">
 
-      <NavLink 
-        to="/resources" 
-        style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
-      >
-        Resources
-      </NavLink>
+      <div className="sidebar-logo">
+        <h2>DevShelf</h2>
+      </div>
 
-      <span> | </span>
+      <nav className="sidebar-nav">
 
-      <NavLink 
-        to="/snippet" 
-        style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
-      >
-        Snippets
-      </NavLink> 
-      
-      <span> | </span>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "sidebar-link active" : "sidebar-link"
+          }
+        >
+          Dashboard
+        </NavLink>
 
-      <NavLink 
-        to="/task" 
-        style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
-      >
-       Tasks
-      </NavLink> 
-      
-      <span> | </span>
+        <NavLink
+          to="/resources"
+          className={({ isActive }) =>
+            isActive ? "sidebar-link active" : "sidebar-link"
+          }
+        >
+          Resources
+        </NavLink>
 
-      <NavLink 
-        to="/register" 
-        style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
-      >
-        Register
-      </NavLink> 
-      
-      <span> | </span>
+        <NavLink
+          to="/snippet"
+          className={({ isActive }) =>
+            isActive ? "sidebar-link active" : "sidebar-link"
+          }
+        >
+          Snippets
+        </NavLink>
 
-      <NavLink 
-        to="/login" 
-        style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
-      >
-        Login
-      </NavLink> 
-    </nav>
+        <NavLink
+          to="/task"
+          className={({ isActive }) =>
+            isActive ? "sidebar-link active" : "sidebar-link"
+          }
+        >
+          Tasks
+        </NavLink>
+
+      </nav>
+
+    </aside>
   );
 }
 
