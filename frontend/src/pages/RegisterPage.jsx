@@ -1,25 +1,70 @@
 import { useState } from "react";
 import Button from "../components/Button";
+
 function RegisterPage() {
     const [formData, setFormData] = useState({
-        username:"",
-        email:"",
-        password:""
+        username: "",
+        email: "",
+        password: ""
+    });
+
+    const [error, setError] = useState({
+        username: "",
+        email: "",
+        password: ""
     });
 
     const handleChange = (event) => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
 
         setFormData((updateData) => ({
             ...updateData,
             [name]: value,
-        }))
-    }
+        }));
+
+        if (error[name]) {
+            setError((correctErrors) => ({
+                ...correctErrors,
+                [name]: ""
+            }));
+        }
+    };
+
+    const validateForm = () => {
+        let valid = true;
+        let newErrors = { username: "", email: "", password: "" };
+
+        if (formData.username.trim().length < 3) {
+            newErrors.username = "Username must be at least 4 characters long.";
+            valid = false;
+        }
+
+        if (!formData.email.endsWith("@gmail.com")) {
+            newErrors.email = "Email must be a valid @gmail.com address.";
+            valid = false;
+        }
+
+        if (formData.password.length < 8) {
+            newErrors.password = "Password must be at least 8 characters long.";
+            valid = false;
+        }
+
+        setError(newErrors);
+        
+        return valid; 
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Form Submitted successfully:', formData)
-    }
+        
+        const isFormValid = validateForm();
+
+        if (isFormValid) {
+            console.log('Form Submitted successfully:', formData);
+        } else {
+            console.log('Form submission blocked due to errors.');
+        }
+    };
     return(
         <>
         <h1>Create an account</h1>
@@ -31,8 +76,7 @@ function RegisterPage() {
             type="text"
             name="username"
             value={formData.username}
-            onChange={handleChange} 
-            required/><br /><br />
+            onChange={handleChange} /><br /><br />
 
             <label htmlFor="email">Email:</label>
 
@@ -40,8 +84,7 @@ function RegisterPage() {
             type="email"
             name="email"
             value={formData.email}
-            onChange={handleChange} 
-            required/><br /><br />
+            onChange={handleChange}/><br /><br />
 
             <label htmlFor="password">Password:</label>
 
@@ -49,8 +92,7 @@ function RegisterPage() {
             type="password"
             name="password"
             value={formData.password}
-            onChange={handleChange} 
-            required/><br /><br />
+            onChange={handleChange}/><br /><br />
 
             <Button variant="secondary" type="submit">Sign UP</Button>
         </form>
