@@ -70,33 +70,36 @@ function RegisterPage() {
         <h1>Create an account</h1>
 
         <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-
-            <input 
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange} 
-            />
+            
+            <div>
+                <label htmlFor="username">Username:</label>
+                <input 
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}/>
             <p className="error-msg">{error.username}</p><br />
+            </div>
 
-            <label htmlFor="email">Email:</label>
+            <div>
+                <label htmlFor="email">Email:</label>
+                <input 
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}/>
+                <p className="error-msg">{error.email}</p><br />
+            </div>
 
-            <input 
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}/>
-            <p className="error-msg">{error.email}</p><br />
-
-            <label htmlFor="password">Password:</label>
-
-            <input 
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}/>
-            <p className="error-msg">{error.password}</p><br />
+            <div>
+                <label htmlFor="password">Password:</label>
+                <input 
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}/>
+                <p className="error-msg">{error.password}</p><br />
+            </div>
 
             <Button variant="secondary" type="submit">Sign UP</Button>
         </form>
