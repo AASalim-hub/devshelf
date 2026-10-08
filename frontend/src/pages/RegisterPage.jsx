@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../components/Button";
+import "./RegisterPage.css";
 
 function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -66,45 +67,48 @@ function RegisterPage() {
         }
     };
     return(
-        <>
-        <h1>Create an account</h1>
+        <div className="register-page">
+            <div className="register-card">
+                <h1>Create an account</h1>
+                <p className="register-description">Create your DevShelf account to get started.</p>
 
-        <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
             
-            <div>
-                <label htmlFor="username">Username:</label>
-                <input 
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}/>
-            <p className="error-msg">{error.username}</p>
+                    <div className="form-field">
+                         <label htmlFor="username">Username:</label>
+                        <input 
+                         type="text"
+                         name="username"
+                        value={formData.username}
+                         onChange={handleChange}/>
+                        <p className="error-msg">{error.username}</p>
+                    </div>
+
+                    <div className="form-field">
+                        <label htmlFor="email">Email:</label>
+                        <input 
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}/>
+                        <p className="error-msg"    >{error.email}</p>
+                    </div>
+
+                    <div className="form-field">
+                        <label htmlFor="password">Password:</label>
+                        <input 
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}/>
+                        <p className="error-msg">{error.password}</p>
+                    </div>
+
+                    <Button variant="secondary" type="submit">Sign UP</Button>
+                </form>
+
             </div>
-
-            <div>
-                <label htmlFor="email">Email:</label>
-                <input 
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}/>
-                <p className="error-msg">{error.email}</p>
-            </div>
-
-            <div>
-                <label htmlFor="password">Password:</label>
-                <input 
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}/>
-                <p className="error-msg">{error.password}</p>
-            </div>
-
-            <Button variant="secondary" type="submit">Sign UP</Button>
-        </form>
-
-        </>
+        </div>
     );
 }
 
