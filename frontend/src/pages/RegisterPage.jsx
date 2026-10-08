@@ -4,7 +4,7 @@ function RegisterPage() {
         <>
         <h1>Register Page</h1>
 
-        <Button>Sign UP</Button>
+        <Button variant="secondary">Sign UP</Button>
         </>
     );
 }
