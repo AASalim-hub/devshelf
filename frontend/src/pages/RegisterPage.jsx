@@ -78,7 +78,7 @@ function RegisterPage() {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}/>
-            <p className="error-msg">{error.username}</p><br />
+            <p className="error-msg">{error.username}</p>
             </div>
 
             <div>
@@ -88,7 +88,7 @@ function RegisterPage() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}/>
-                <p className="error-msg">{error.email}</p><br />
+                <p className="error-msg">{error.email}</p>
             </div>
 
             <div>
@@ -98,7 +98,7 @@ function RegisterPage() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}/>
-                <p className="error-msg">{error.password}</p><br />
+                <p className="error-msg">{error.password}</p>
             </div>
 
             <Button variant="secondary" type="submit">Sign UP</Button>
