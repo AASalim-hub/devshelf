@@ -35,7 +35,7 @@ function RegisterPage() {
         let newErrors = { username: "", email: "", password: "" };
 
         if (formData.username.trim().length < 3) {
-            newErrors.username = "Username must be at least 4 characters long.";
+            newErrors.username = "Username must be at least 3 characters long.";
             valid = false;
         }
 
@@ -76,7 +76,8 @@ function RegisterPage() {
             type="text"
             name="username"
             value={formData.username}
-            onChange={handleChange} /><br /><br />
+            onChange={handleChange} 
+            /> {error.username}<br /><br />
 
             <label htmlFor="email">Email:</label>
 
@@ -84,7 +85,7 @@ function RegisterPage() {
             type="email"
             name="email"
             value={formData.email}
-            onChange={handleChange}/><br /><br />
+            onChange={handleChange}/>{error.email}<br /><br />
 
             <label htmlFor="password">Password:</label>
 
@@ -92,7 +93,7 @@ function RegisterPage() {
             type="password"
             name="password"
             value={formData.password}
-            onChange={handleChange}/><br /><br />
+            onChange={handleChange}/>{error.password}<br /><br />
 
             <Button variant="secondary" type="submit">Sign UP</Button>
         </form>
