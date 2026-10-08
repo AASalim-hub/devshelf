@@ -4,7 +4,7 @@ function RegisterPage() {
         <>
         <h1>Create an account</h1>
 
-        <form action="submit">
+        <form>
             <label htmlFor="username">Username:</label>
 
             <input type="text" /><br /><br />
@@ -14,8 +14,8 @@ function RegisterPage() {
             <input type="email" /><br /><br />
 
             <label htmlFor="password">Password:</label>
-            
-            <input type="text" /><br /><br />
+
+            <input type="password" /><br /><br />
 
             <Button variant="secondary" type="submit">Sign UP</Button>
         </form>
