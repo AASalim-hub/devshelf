@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../components/Button";
 function RegisterPage() {
-    const{formData, setFormData} = useState({
+    const [formData, setFormData] = useState({
         username:"",
         email:"",
         password:""
@@ -17,7 +17,7 @@ function RegisterPage() {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefaut();
+        event.preventDefault();
         console.log('Form Submitted successfully:', formData)
     }
     return(
