@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import "./RegisterPage.css";
+import {Link} from "react-router-dom";
 
 function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -161,6 +162,11 @@ function RegisterPage() {
 
                     <Button variant="secondary" type="submit" className={"register-button"}>Sign UP</Button>
                 </form>
+
+
+                <p className="auth-redirect">
+                    Already have an account? <Link to="/login" className="auth-link">Login here</Link>
+                </p>
 
             </div>
         </div>

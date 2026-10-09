@@ -77,6 +77,26 @@
   margin-top: 8px;
 }
 
+.auth-redirect {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.auth-link {
+  color: var(--color-primary, #2563eb); /* Uses your primary variable or falls back to blue */
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition, 0.2s);
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+
 @media (max-width: 480px) {
   .register-page {
     padding: 24px 16px;
