@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import "./RegisterPage.css";
 
 function RegisterPage() {
+    const [showPassword, setshowPassword] = useState(false);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -66,6 +67,10 @@ function RegisterPage() {
             console.log('Form submission blocked due to errors.');
         }
     };
+
+    const showPasswordToggle = () => {
+        setshowPassword((show) => !show);
+    }
     return(
         <div className="register-page">
             <div className="register-card">
@@ -77,6 +82,7 @@ function RegisterPage() {
                     <div className="form-field">
                          <label htmlFor="username">Username:</label>
                         <input 
+                        id="username"
                          type="text"
                          name="username"
                         value={formData.username}
@@ -87,6 +93,7 @@ function RegisterPage() {
                     <div className="form-field">
                         <label htmlFor="email">Email:</label>
                         <input 
+                        id="email"
                         type="email"
                         name="email"
                         value={formData.email}
@@ -95,13 +102,36 @@ function RegisterPage() {
                     </div>
 
                     <div className="form-field">
-                        <label htmlFor="password">Password:</label>
-                        <input 
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}/>
-                        <p className="error-msg">{error.password}</p>
+                        <label htmlFor="password-input">Password:</label>
+                        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                            <input 
+                                id="password-input"
+            
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="••••••••"
+                                value={formData.password}
+                                onChange={handleChange}
+                                style={{ paddingRight: '40px' }}
+                            />
+                            <button
+                                type="button"
+                                onClick={showPasswordToggle}
+                                style={{
+                                    position: 'absolute',
+                                    right: '12px',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    fontSize: '16px',
+                                    padding: '0'
+                                }}
+                            >
+                                {showPassword ? "👁️" : "👁️"}
+                            </button>
+                        </div>
+    
+                        {error.password && <p className="error-msg">{error.password}</p>}
                     </div>
 
                     <Button variant="secondary" type="submit" className={"register-button"}>Sign UP</Button>
