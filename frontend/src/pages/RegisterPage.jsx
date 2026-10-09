@@ -104,7 +104,7 @@ function RegisterPage() {
                         <p className="error-msg">{error.password}</p>
                     </div>
 
-                    <Button variant="secondary" type="submit">Sign UP</Button>
+                    <Button variant="secondary" type="submit" className={"register-button"}>Sign UP</Button>
                 </form>
 
             </div>
