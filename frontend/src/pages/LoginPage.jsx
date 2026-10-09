@@ -1,10 +1,16 @@
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
 function LoginPage() {
     return(
-        <>
-        <h1>Login Page</h1>
-        <Button variant="primary">Login</Button>
-        </>
+        <div>
+            <div>
+                <h1>Login Page</h1>
+                <Button variant="primary">Login</Button>
+                <p>
+                    Don't have an account?  <Link to="/register">Sign up</Link>
+                </p>
+            </div>
+        </div>
     );
 }
 
