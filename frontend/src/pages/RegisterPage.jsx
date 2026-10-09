@@ -3,7 +3,8 @@ import Button from "../components/Button";
 import "./RegisterPage.css";
 
 function RegisterPage() {
-    const [showPassword, setshowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState("");
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -30,7 +31,13 @@ function RegisterPage() {
                 [name]: ""
             }));
         }
+
+        if (submitStatus) {
+        setSubmitStatus("");
+    }
     };
+
+    
 
     const validateForm = () => {
         let valid = true;
@@ -62,20 +69,38 @@ function RegisterPage() {
         const isFormValid = validateForm();
 
         if (isFormValid) {
-            console.log('Form Submitted successfully:', formData);
+            setSubmitStatus(`Welcome, ${formData.username}! Your account has been created successfully.`);
+
+            setFormData({ username: "", email: "", password: "" });
         } else {
+            setSubmitStatus("");
             console.log('Form submission blocked due to errors.');
         }
     };
 
     const showPasswordToggle = () => {
-        setshowPassword((show) => !show);
+        setShowPassword((show) => !show);
     }
     return(
         <div className="register-page">
             <div className="register-card">
                 <h1>Create an account</h1>
                 <p className="register-description">Create your DevShelf account to get started.</p>
+
+                {submitStatus && (
+                    <div style={{
+                        padding: '12px',
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        border: '1px solid rgb(34, 197, 94)',
+                        borderRadius: '8px',
+                        color: 'rgb(21, 128, 61)',
+                        fontSize: '14px',
+                        marginBottom: '20px',
+                        textAlign: 'center'
+                    }}>
+                        {submitStatus}
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit}>
             
