@@ -37,30 +37,30 @@ function DashboardPage() {
             <div>
                 <div>
                     <span></span>
-                    <p>Resources</p>
+                    <p>Total Resources</p>
                     <p>{resourceCount}</p>
-                    <p>Saved Learning Materials</p>
+                    <p>Saved learning materials</p>
                 </div>
 
                 <div>
                     <span></span>
-                    <p>Tasks</p>
+                    <p>Total Tasks</p>
                     <p>{taskCount}</p>
-                    <p>Task To Complete</p>
+                    <p>Task to complete</p>
                 </div>
 
                 <div>
                     <span></span>
-                    <p>Snippets</p>
+                    <p>Total Snippets</p>
                     <p>{snippetCount}</p>
-                    <p>Reusable Code Snippets</p>
+                    <p>Reusable code snippets</p>
                 </div>
 
                 <div>
                     <span></span>
-                    <p>Compelet</p>
+                    <p>Compelet Tasks</p>
                     <p>{completedTaskCount}</p>
-                    <p>Finished Tasks</p>
+                    <p>Finished tasks</p>
                 </div>
             </div>
         </section>
