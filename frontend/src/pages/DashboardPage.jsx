@@ -46,7 +46,7 @@ function DashboardPage() {
                     <span></span>
                     <p>Total Tasks</p>
                     <p>{taskCount}</p>
-                    <p>Task to complete</p>
+                    <p>Tasks on your list</p>
                 </div>
 
                 <div>
@@ -58,10 +58,17 @@ function DashboardPage() {
 
                 <div>
                     <span></span>
-                    <p>Compelet Tasks</p>
+                    <p>Completed Tasks</p>
                     <p>{completedTaskCount}</p>
                     <p>Finished tasks</p>
                 </div>
+            </div>
+
+            <div>
+                <h3>Quick actions</h3>
+                <p>Save a resource</p>
+                <p>Create a snippet</p>
+                <p>Add a task</p>
             </div>
         </section>
         </>
