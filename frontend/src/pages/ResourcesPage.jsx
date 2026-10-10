@@ -21,6 +21,7 @@ function ResourcesPage() {
         }
     ];
 
+    //Counting variables 
     let resourceCount = resources.length;
     let snippetCount = snippets.length;
     let taskCount = tasks.length;
