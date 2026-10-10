@@ -1,5 +1,6 @@
 import NavBar from "./NavBar";
 import './DashboardPage.css';
+import { Link } from "react-router-dom";
 function DashboardPage() {
 
     const resources = ["HTML & CSS", "JavaScript", "React Guide"];
@@ -73,9 +74,9 @@ function DashboardPage() {
     <h3 className="section-title">Quick actions</h3>
 
     <div className="quick-actions-list">
-        <p className="quick-action-item">Save a resource</p>
-        <p className="quick-action-item">Create a snippet</p>
-        <p className="quick-action-item">Add a task</p>
+        <p className="quick-action-item"><Link to="/resources">Save a resource</Link></p>
+        <p className="quick-action-item"><Link to="/snippet">Create a snippet</Link></p>
+        <p className="quick-action-item"><Link to="/task">Add a task</Link></p>
     </div>
 </div>
         </section>
