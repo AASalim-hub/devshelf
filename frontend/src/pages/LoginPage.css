@@ -1,3 +1,4 @@
+/* Full-page layout */
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -7,6 +8,7 @@
   background: var(--color-background);
 }
 
+/* Main login card */
 .login-card {
   width: 100%;
   max-width: 440px;
@@ -17,36 +19,100 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-.login-card h1 {
-  margin: 0 0 8px;
+/* Login heading */
+.login-title {
+  margin: 0 0 10px;
   color: var(--color-text);
   font-size: 28px;
   font-weight: 700;
 }
 
+/* Welcome message */
 .login-description {
   margin: 0 0 28px;
   color: var(--color-text-secondary);
   font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Each input group */
+.login-field {
+  margin-bottom: 20px;
+}
+
+/* Input labels */
+.login-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Email and password inputs */
+.login-field input {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition);
+}
+
+/* Input focus effect */
+.login-field input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Validation errors — shared with Register page */
+.error-msg {
+  margin: 6px 0 0;
+  color: var(--color-danger);
+  font-size: 12px;
   line-height: 1.5;
 }
 
+/* Login button */
 .login-button {
+  display: block;
   width: 100%;
   margin-top: 8px;
 }
 
+/* Success feedback */
+.login-success {
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius);
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--color-success);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Link beneath the form */
 .auth-redirect {
   margin: 24px 0 0;
   color: var(--color-text-secondary);
   font-size: 14px;
+  line-height: 1.6;
   text-align: center;
 }
 
+/* Login and registration links */
 .auth-link {
   color: var(--color-primary);
   font-weight: 600;
   text-decoration: none;
+  transition: var(--transition);
 }
 
 .auth-link:hover {
@@ -54,12 +120,17 @@
   text-decoration: underline;
 }
 
+/* Smaller screens */
 @media (max-width: 480px) {
+  .login-page {
+    padding: 24px 16px;
+  }
+
   .login-card {
     padding: 26px 22px;
   }
 
-  .login-card h1 {
+  .login-title {
     font-size: 24px;
   }
 }

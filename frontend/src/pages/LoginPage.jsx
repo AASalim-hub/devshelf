@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./LoginPage.css";
 import { useState } from "react";
 function LoginPage() {
+    const [showPassword, setShowPassword] = useState(false);
     const [submitStatus, setSubmitStatus] = useState("");
     const [loginData, setLoginData] = useState({
         email: "",
@@ -66,15 +67,18 @@ function LoginPage() {
         }
     };
 
+    const showPasswordToggle = () => {
+        setShowPassword((show) => !show);
+    }
 
     return(
         <div className="login-page">
             <div className="login-card">
-                <h1 className="login-card h1">Sign In</h1>
+                <h1 className="login-title">Sign In</h1>
 
                 <form onSubmit={handleSubmit}>
                     <p className="login-description">Welcome back! Log in to your DevShelf account to continue.</p>
-                    <div className="login-card">
+                    
 
                         {submitStatus && (
                     <div style={{
@@ -89,35 +93,58 @@ function LoginPage() {
                     }}>
                         {submitStatus}
                     </div>
-                )}
-                        <label htmlFor="email">Email:</label>
+                )}<div className="login-field">
+                        <label className="login-field label" htmlFor="email">Email:</label>
                         <input 
                             id="email"
                             type="email"
                             name="email"
                             value={loginData.email}
                             onChange={loginHandler} 
+                            className="login-field input login-field input:focus"
                         />
                         <p className="error-msg">{errors.email}</p>
                     </div>
 
-                <div className="login-card">
-                    <label id="password" htmlFor="password">Password:</label>
+                <div className="login-field">
+                    <label htmlFor="password">Password:</label>
+                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                     <input 
                         id="password"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         value={loginData.password} 
                         onChange={loginHandler}
+                        className="login-field input"
+                        style={{ paddingRight: '40px' }}
                     />
+
+                    <button
+                                type="button"
+                                onClick={showPasswordToggle}
+                                style={{
+                                    
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '3px',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    fontSize: '16px',
+                                    padding: '0'
+                                }}
+                            >
+                                {showPassword ? "👁️" : "👁️"}
+                            </button>
                     <p className="error-msg">{errors.password}</p>
+                    </div>
                 </div>
                 
                 
                 <Button type="submit" variant="primary" className="login-button">Sign in</Button>
                 </form>
                 <p className="auth-redirect">
-                    Don't have an account?  <Link className="auth-link" to="/register">Sign up</Link>
+                    Don't have an account?  <Link className="auth-link auth-link:hover" to="/register">Sign up</Link>
                 </p>
             </div>
         </div>

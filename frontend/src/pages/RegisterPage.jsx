@@ -145,7 +145,7 @@ function RegisterPage() {
                                 onClick={showPasswordToggle}
                                 style={{
                                     position: 'absolute',
-                                    right: '12px',
+                                    right: '3px',
                                     background: 'none',
                                     border: 'none',
                                     cursor: 'pointer',
@@ -165,7 +165,7 @@ function RegisterPage() {
 
 
                 <p className="auth-redirect">
-                    Already have an account? <Link to="/login" className="auth-link">Login here</Link>
+                    Already have an account? <Link to="/login" className="auth-link">Sign In </Link>here
                 </p>
 
             </div>
