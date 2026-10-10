@@ -1,4 +1,5 @@
 import NavBar from "./NavBar";
+import './DashboardPage.css';
 function DashboardPage() {
 
     const resources = ["HTML & CSS", "JavaScript", "React Guide"];
@@ -30,46 +31,53 @@ function DashboardPage() {
 
     return(
         <>
-        <section>
+        <section className="dashboard-page">
             <NavBar />
-            <h2>Good Morning!</h2>
-            <p>Keep your learning organized</p>
-            <div>
-                <div>
-                    <span></span>
-                    <p>Total Resources</p>
-                    <p>{resourceCount}</p>
-                    <p>Saved learning materials</p>
-                </div>
-
-                <div>
-                    <span></span>
-                    <p>Total Tasks</p>
-                    <p>{taskCount}</p>
-                    <p>Tasks on your list</p>
-                </div>
-
-                <div>
-                    <span></span>
-                    <p>Total Snippets</p>
-                    <p>{snippetCount}</p>
-                    <p>Reusable code snippets</p>
-                </div>
-
-                <div>
-                    <span></span>
-                    <p>Completed Tasks</p>
-                    <p>{completedTaskCount}</p>
-                    <p>Finished tasks</p>
-                </div>
+            <div className="dashboard-welcome">
+                <h2>Good Morning!</h2>
+                <p>Keep your learning organized</p>
             </div>
+            
+<div className="dashboard-stats">
+    <div className="stat-card">
+        <span className="stat-icon stat-icon-resources"></span>
+        <p className="stat-label">Total Resources</p>
+        <p className="stat-value">{resourceCount}</p>
+        <p className="stat-description">Saved learning materials</p>
+    </div>
 
-            <div>
-                <h3>Quick actions</h3>
-                <p>Save a resource</p>
-                <p>Create a snippet</p>
-                <p>Add a task</p>
-            </div>
+    <div className="stat-card">
+        <span className="stat-icon stat-icon-tasks"></span>
+        <p className="stat-label">Total Tasks</p>
+        <p className="stat-value">{taskCount}</p>
+        <p className="stat-description">Tasks on your list</p>
+    </div>
+
+    <div className="stat-card">
+        <span className="stat-icon stat-icon-snippets"></span>
+        <p className="stat-label">Total Snippets</p>
+        <p className="stat-value">{snippetCount}</p>
+        <p className="stat-description">Reusable code snippets</p>
+    </div>
+
+    <div className="stat-card">
+        <span className="stat-icon stat-icon-completed"></span>
+        <p className="stat-label">Completed Tasks</p>
+        <p className="stat-value">{completedTaskCount}</p>
+        <p className="stat-description">Finished tasks</p>
+    </div>
+</div>
+
+
+            <div className="quick-actions">
+    <h3 className="section-title">Quick actions</h3>
+
+    <div className="quick-actions-list">
+        <p className="quick-action-item">Save a resource</p>
+        <p className="quick-action-item">Create a snippet</p>
+        <p className="quick-action-item">Add a task</p>
+    </div>
+</div>
         </section>
         </>
     );
