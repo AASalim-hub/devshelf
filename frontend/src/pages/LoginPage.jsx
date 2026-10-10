@@ -81,27 +81,17 @@ function LoginPage() {
                     
 
                         {submitStatus && (
-                    <div style={{
-                        padding: '12px',
-                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                        border: '1px solid rgb(34, 197, 94)',
-                        borderRadius: '8px',
-                        color: 'rgb(21, 128, 61)',
-                        fontSize: '14px',
-                        marginBottom: '20px',
-                        textAlign: 'center'
-                    }}>
+                    <div className="login-success">
                         {submitStatus}
                     </div>
                 )}<div className="login-field">
-                        <label className="login-field label" htmlFor="email">Email:</label>
+                        <label htmlFor="email">Email:</label>
                         <input 
                             id="email"
                             type="email"
                             name="email"
                             value={loginData.email}
                             onChange={loginHandler} 
-                            className="login-field input login-field input:focus"
                         />
                         <p className="error-msg">{errors.email}</p>
                     </div>
@@ -115,36 +105,27 @@ function LoginPage() {
                         name="password"
                         value={loginData.password} 
                         onChange={loginHandler}
-                        className="login-field input"
                         style={{ paddingRight: '40px' }}
                     />
 
                     <button
                                 type="button"
                                 onClick={showPasswordToggle}
-                                style={{
-                                    
-                                    position: 'absolute',
-                                    top: '10px',
-                                    right: '3px',
-                                    background: 'none',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    fontSize: '16px',
-                                    padding: '0'
-                                }}
+                                className="password-visibility"
                             >
                                 {showPassword ? "👁️" : "👁️"}
                             </button>
+                        </div>
+
                     <p className="error-msg">{errors.password}</p>
-                    </div>
+                   
                 </div>
                 
                 
                 <Button type="submit" variant="primary" className="login-button">Sign in</Button>
                 </form>
                 <p className="auth-redirect">
-                    Don't have an account?  <Link className="auth-link auth-link:hover" to="/register">Sign up</Link>
+                    Don't have an account?  <Link className="auth-link" to="/register">Sign up</Link>
                 </p>
             </div>
         </div>
