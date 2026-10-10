@@ -1,7 +1,117 @@
+import NavBar from "./NavBar";
+import { useState } from "react";
+import Button from "../components/Button";
+
 function ResourcesPage() {
+    const [formData, setformData] = useState({
+        title: "",
+        url: "",
+        category:"",
+        description:""
+    })
+
+    const resourceHandle = (event) => {
+        const{name, value} = event.target
+
+        setformData({
+            ...formData,
+            [name]: value
+        })
+    }
+    const resources = [
+        {title: "AA Salim", url: "http://localhost:5173/resources", category:"Documentation", description:"On going project"}
+    ]; 
     return(
         <>
-        <h1>Resources</h1>
+        <section>
+            <div>
+                <h1>Resources</h1>
+                <p>Save and organize useful learning materials.</p>
+            </div>
+            <hr />
+            <div>
+                <h3>Add a new resource</h3>
+                <form>
+                    <div>
+                        <label htmlFor="resource">Resource title:</label>
+                        <input 
+                        id="resource"
+                        type="text" 
+                        name="title"
+                        value={formData.title}
+                        onChange={resourceHandle}/>
+                        
+                    </div>
+
+                    <div>
+                        <label htmlFor="resource-URL">Resource URL:</label>
+                        <input 
+                        id="resource-URL"
+                        type="url" 
+                        name="url"
+                        value={formData.url}
+                        onChange={resourceHandle}/>
+                    </div>
+
+                    <div>
+                        <label htmlFor="category">Category:</label>
+                        <select 
+                        name="catigory" 
+                        id="category" 
+                        type="select" 
+                        value={formData.catigory}
+                        onChange={resourceHandle}>
+                            <option value="">-- Select a catigory --</option>
+                            <option value="Documentation">Documentation</option>
+                            <option value="Tutorial">Tutorial</option>
+                            <option value="Course">Course</option>
+                            <option value="Tool">Tool</option>
+                            <option value="Other">Other</option>
+                            </select>                       
+                    </div>
+
+                    <div>
+                        <label htmlFor="description">Description (optional)</label>
+                        <textarea 
+                        id="description"
+                        type="textarea" 
+                        placeholder="Add notes about this resource..."
+                        name="description"
+                        value={formData.description}
+                        onChange={resourceHandle}
+                        rows={5}></textarea>
+                                                
+                    </div>
+                    <Button type="submit" variant="primary" className="login-button">Sign in</Button>      
+                </form>
+            </div>
+
+            <div>
+                <h4>Your resources</h4>
+                <p>{resources.length} saved</p>
+            </div>
+
+            <div>
+                <span></span>
+                <h4>{resources.length !== 0 ? "Resources history":"No resources yet"}</h4>
+                <div> <h5>Title</h5> <h5>URL</h5> <h5>Category</h5> <h5>Description</h5> </div>
+                {resources.length === 0 ? (
+                    <p>
+                        Resources you save will appear here.
+                    </p>
+                    ) : (
+                    <ul>
+                        {resources.map((resource, index) => {
+                        return (
+                        <li key={index}>
+                            <article><strong>{resource.title}</strong> <span>{resource.url}</span> <span>{resource.category}</span><span>{resource.description}</span></article>
+                        </li>
+                );
+            })}
+        </ul>
+    )}
+            </div>
+        </section>
         </>
     );
 }
