@@ -85,59 +85,62 @@ function ResourcesPage() {
 
     return (
         <>
-        <section>
-            <div>
-                <h1>Resources</h1>
-                <p>Save and organize useful learning materials.</p>
+        <section className="resources-page-container">
+            <div className="resources-header-section">
+                <h1 className="resources-main-title">Resources</h1>
+                <p className="resources-subtitle">Save and organize useful learning materials.</p>
             </div>
-            <hr />
-            <div>
-                <h3>Add a new resource</h3>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="resource">Resource title:</label>
+            <hr className="resources-divider" />
+            <div className="resource-form-card">
+                <h3 className="resource-form-title">Add a new resource</h3>
+                <form onSubmit={handleSubmit} className="resource-form">
+                    <div className="resource-form-group">
+                        <label htmlFor="resource" className="resource-label">Resource title:</label>
                         <input 
                             id="resource"
                             type="text" 
                             name="title"
                             value={formData.title}
                             onChange={resourceHandle}
+                            className="resource-input"
                         />
-                        <p>{errors.title}</p>                        
+                        {errors.title && <p className="resource-error-message">{errors.title}</p>}                        
                     </div>
 
-                    <div>
-                        <label htmlFor="resource-URL">Resource URL:</label>
+                    <div className="resource-form-group">
+                        <label htmlFor="resource-URL" className="resource-label">Resource URL:</label>
                         <input 
                             id="resource-URL"
                             type="url" 
                             name="url"
                             value={formData.url}
                             onChange={resourceHandle}
+                            className="resource-input"
                         />
-                        <p>{errors.url}</p>
+                        {errors.url && <p className="resource-error-message">{errors.url}</p>}
                     </div>
 
-                    <div>
-                        <label htmlFor="category">Category:</label>
+                    <div className="resource-form-group">
+                        <label htmlFor="category" className="resource-label">Category:</label>
                         <select 
                             name="category" 
                             id="category"  
                             value={formData.category}
                             onChange={resourceHandle}
+                            className="resource-select"
                         >
-                            <option value="">-- Select a category --</option>
-                            <option value="Documentation">Documentation</option>
-                            <option value="Tutorial">Tutorial</option>
-                            <option value="Course">Course</option>
-                            <option value="Tool">Tool</option>
-                            <option value="Other">Other</option>
+                            <option value="" className="resource-option-placeholder">-- Select a category --</option>
+                            <option value="Documentation" className="resource-option">Documentation</option>
+                            <option value="Tutorial" className="resource-option">Tutorial</option>
+                            <option value="Course" className="resource-option">Course</option>
+                            <option value="Tool" className="resource-option">Tool</option>
+                            <option value="Other" className="resource-option">Other</option>
                         </select>       
-                        <p>{errors.category}</p>               
+                        {errors.category && <p className="resource-error-message">{errors.category}</p>}               
                     </div>
 
-                    <div>
-                        <label htmlFor="description">Description (optional)</label>
+                    <div className="resource-form-group">
+                        <label htmlFor="description" className="resource-label">Description (optional)</label>
                         <textarea 
                             id="description" 
                             placeholder="Add notes about this resource..."
@@ -145,33 +148,39 @@ function ResourcesPage() {
                             value={formData.description}
                             onChange={resourceHandle}
                             rows={5}
+                            className="resource-textarea"
                         />
                     </div>
-                    <Button type="submit" variant="primary" className="login-button">+ Save Resource</Button>      
+                    <Button type="submit" variant="primary" className="resource-submit-button">+ Save Resource</Button>      
                 </form>
             </div>
 
-            <div>
-                <h4>Your resources</h4>
-                <p>{resources.length} saved</p>
+            <div className="resources-counter-section">
+                <h4 className="resources-counter-title">Your resources</h4>
+                <p className="resources-counter-text">{resources.length} saved</p>
             </div>
 
-            <div>
-                <span></span>
-                <h4>{resources.length !== 0 ? "Resources history" : "No resources yet"}</h4>
-                <div> <h5>Title</h5> <h5>URL</h5> <h5>Category</h5> <h5>Description</h5> </div>
+            <div className="resources-history-section">
+                <span className="resources-history-decorator"></span>
+                <h4 className="resources-history-title">{resources.length !== 0 ? "Resources history" : "No resources yet"}</h4>
+                <div className="resources-table-header"> 
+                    <h5 className="resources-table-th">Title</h5> 
+                    <h5 className="resources-table-th">URL</h5> 
+                    <h5 className="resources-table-th">Category</h5> 
+                    <h5 className="resources-table-th">Description</h5> 
+                </div>
                 {resources.length === 0 ? (
-                    <p>Resources you save will appear here.</p>
+                    <p className="resources-empty-fallback">Resources you save will appear here.</p>
                 ) : (
-                    <ul>
+                    <ul className="resources-history-list">
                         {resources.map((resource, index) => {
                             return (
-                                <li key={index}>
-                                    <article>
-                                        <strong>{resource.title}</strong> 
-                                        <span> {resource.url} </span> 
-                                        <span> {resource.category} </span>
-                                        <span> {resource.description} </span>
+                                <li key={index} className="resources-history-item">
+                                    <article className="resource-item-article">
+                                        <strong className="resource-item-title">{resource.title}</strong> 
+                                        <span className="resource-item-url"> {resource.url} </span> 
+                                        <span className="resource-item-category"> {resource.category} </span>
+                                        <span className="resource-item-description"> {resource.description} </span>
                                     </article>
                                 </li>
                             );
