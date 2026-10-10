@@ -64,6 +64,16 @@
   transition: var(--transition);
 }
 
+.login-field input#password {
+  padding-right: 40px;
+}
+
+.password-props { 
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .password-visibility {
     position: absolute;
     right: 3px;

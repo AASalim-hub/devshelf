@@ -98,14 +98,13 @@ function LoginPage() {
 
                 <div className="login-field">
                     <label htmlFor="password">Password:</label>
-                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <div className="password-props">
                     <input 
                         id="password"
                         type={showPassword ? "text" : "password"}
                         name="password"
                         value={loginData.password} 
                         onChange={loginHandler}
-                        style={{ paddingRight: '40px' }}
                     />
 
                     <button
