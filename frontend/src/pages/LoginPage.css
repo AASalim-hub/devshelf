@@ -8,6 +8,33 @@
   background: var(--color-background);
 }
 
+
+/* DevShelf brand header */
+.auth-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    color: var(--color-primary);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.auth-brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 10px rgb(13 89 74 / 15%);
+}
+
+
 /* Main login card */
 .login-card {
   width: 100%;

@@ -7,6 +7,33 @@
   background: var(--color-background);
 }
 
+
+/* DevShelf brand header */
+.auth-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    color: var(--color-primary);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.auth-brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 10px rgb(13 89 74 / 15%);
+}
+
+
 .register-card {
   width: 100%;
   max-width: 440px;
@@ -136,6 +163,48 @@
     color: var(--color-primary);
     background: var(--color-primary-soft);
 }
+
+.register-password-field {
+    position: relative;
+    width: 100%;
+}
+
+.register-password-field input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 48px;
+}
+
+.register-password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.register-password-toggle:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+}
+
+.register-password-toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
 
 @media (max-width: 480px) {
   .register-page {

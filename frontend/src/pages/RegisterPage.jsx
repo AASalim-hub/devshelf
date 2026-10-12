@@ -96,8 +96,38 @@ navigate("/login", {
 
     return (
         <div className="register-page">
-            <div className="register-card">
-                <h1>Create an account</h1>
+            
+<div className="login-card">
+    <div className="auth-brand">
+        <div className="auth-brand-icon">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+            >
+                <path d="M3 21h18" />
+                <path d="M5 21V5h14v16" />
+                <path d="M5 10h14" />
+                <path d="M8 5v5" />
+                <path d="M12 5v5" />
+                <path d="M16 5v5" />
+                <path d="M8 14h8" />
+                <path d="M8 17h8" />
+            </svg>
+        </div>
+
+        <span>DevShelf</span>
+    </div>
+
+    <h1 className="login-title">Sign In</h1>
+
 
                 <p className="register-description">
                     Create your DevShelf account to get started.
