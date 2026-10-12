@@ -14,14 +14,25 @@
 }
 
 .dashboard-welcome {
-    margin: 32px 0;
+    margin: 0 0 30px;
+    padding: 28px 30px;
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    background: linear-gradient(
+        135deg,
+        #FFFFFF 0%,
+        #F0F5EF 100%
+    );
+    box-shadow: 0 5px 18px rgb(7 63 53 / 4%);
 }
 
 .dashboard-welcome h1 {
     margin: 0 0 10px;
+    color: var(--color-text);
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 750;
     letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
 }
 
 .dashboard-welcome > p:last-child {
@@ -319,8 +330,9 @@
     }
 
     .dashboard-welcome {
-        margin: 25px 0;
-    }
+    margin: 0 0 22px;
+    padding: 22px 18px;
+}
 
     .dashboard-stats {
         grid-template-columns: 1fr;

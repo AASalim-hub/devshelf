@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import NavBar from "./NavBar";
 import api, { getApiError } from "../services/api";
 import "./DashboardPage.css";
 
@@ -10,6 +9,7 @@ function DashboardPage() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const userName = localStorage.getItem("userName") || "there";
 
     useEffect(() => {
         async function loadDashboard() {
@@ -106,13 +106,16 @@ function DashboardPage() {
 
     return (
         <section className="dashboard-page">
-            <NavBar />
-
             <div className="dashboard-welcome">
-                <p className="dashboard-eyebrow">YOUR PERSONAL WORKSPACE</p>
-                <h1>Welcome back!</h1>
-                <p>Keep your learning, code, and tasks organised.</p>
-            </div>
+    <p className="dashboard-eyebrow">YOUR PERSONAL WORKSPACE</p>
+
+    <h1>Welcome back, {userName}!</h1>
+
+    <p>
+        Ready to make progress? Keep your learning resources,
+        code snippets, and tasks organised in one place.
+    </p>
+</div>
 
             {error && (
                 <div className="dashboard-error" role="alert">
