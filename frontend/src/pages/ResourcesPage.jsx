@@ -331,76 +331,102 @@ function ResourcesPage() {
                         </p>
                     </div>
                 ) : (
-                    <div className="resource-grid">
-                        {filteredResources.map((resource) => (
-                            <article className="resource-card" key={resource.id}>
-                                <div className="resource-card-top">
-                                    <span className="type-pill">
-                                        {resource.type || "other"}
-                                    </span>
-                                    <span className="status-pill">
-                                        {resource.updatedAt &&
-                                        resource.createdAt &&
-                                        new Date(resource.updatedAt).getTime() >
-                                            new Date(resource.createdAt).getTime()
-                                            ? "Updated"
-                                            : "Saved"}
-                                    </span>
-                                </div>
+                    
+<div className="resource-table-wrapper">
+    <table className="resource-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>URL</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-                                <h3>{resource.title}</h3>
+        <tbody>
+            {filteredResources.map((resource) => {
+                const wasUpdated =
+                    resource.updatedAt &&
+                    resource.createdAt &&
+                    new Date(resource.updatedAt).getTime() >
+                        new Date(resource.createdAt).getTime();
 
+                return (
+                    <tr key={resource.id}>
+                        <td>
+                            <div className="resource-table-title">
+                                <strong>{resource.title}</strong>
                                 {resource.notes && (
-                                    <p className="resource-notes">{resource.notes}</p>
+                                    <span>{resource.notes}</span>
                                 )}
+                            </div>
+                        </td>
 
-                                <a
-                                    className="resource-link"
-                                    href={resource.url}
-                                    target="_blank"
-                                    rel="noreferrer"
+                        <td>
+                            <a
+                                className="resource-table-url"
+                                href={resource.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                title={resource.url}
+                            >
+                                {resource.url}
+                            </a>
+                        </td>
+
+                        <td>
+                            <span className="resource-type-label">
+                                {resource.type || "other"}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span
+                                className={`resource-status-label ${
+                                    wasUpdated ? "is-updated" : "is-saved"
+                                }`}
+                            >
+                                {wasUpdated ? "Updated" : "Saved"}
+                            </span>
+                        </td>
+
+                        <td>
+                            <time
+                                className="resource-table-date"
+                                dateTime={resource.createdAt || undefined}
+                            >
+                                {formatDateTime(resource.createdAt)}
+                            </time>
+                        </td>
+
+                        <td>
+                            <div className="resource-row-actions">
+                                <button
+                                    type="button"
+                                    className="secondary-button"
+                                    onClick={() => startEditing(resource)}
                                 >
-                                    Open resource <span aria-hidden="true">↗</span>
-                                </a>
+                                    Edit
+                                </button>
 
-                                <div className="resource-date">
-                                    <span>Created</span>
-                                    <time dateTime={resource.createdAt || undefined}>
-                                        {formatDateTime(resource.createdAt)}
-                                    </time>
-                                </div>
+                                <button
+                                    type="button"
+                                    className="danger-button"
+                                    onClick={() => handleDelete(resource)}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                );
+            })}
+        </tbody>
+    </table>
+</div>
 
-                                {resource.updatedAt &&
-                                    resource.createdAt &&
-                                    new Date(resource.updatedAt).getTime() >
-                                        new Date(resource.createdAt).getTime() && (
-                                        <div className="resource-date">
-                                            <span>Last updated</span>
-                                            <time dateTime={resource.updatedAt}>
-                                                {formatDateTime(resource.updatedAt)}
-                                            </time>
-                                        </div>
-                                    )}
-
-                                <div className="card-actions">
-                                    <button
-                                        type="button"
-                                        className="secondary-button"
-                                        onClick={() => startEditing(resource)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="danger-button"
-                                        onClick={() => handleDelete(resource)}
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
                 )}
             </section>
         </main>

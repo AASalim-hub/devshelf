@@ -455,98 +455,95 @@ function TaskPage() {
                         </p>
                     </div>
                 ) : (
-                    <div className="task-list">
-                        {filteredTasks.map((task) => (
-                            <article className="task-card" key={task.id}>
-                                <div className="task-card-header">
-                                    <div className="task-title-area">
-                                        <span
-                                            className={`task-status status-${task.status || "todo"}`}
-                                        >
-                                            {statusLabels[task.status] || "To do"}
-                                        </span>
-                                        <span
-                                            className={`priority-pill priority-${task.priority || "medium"}`}
-                                        >
-                                            {task.priority || "medium"} priority
-                                        </span>
-                                    </div>
-                                    <h3>{task.title}</h3>
-                                    {task.project && (
-                                        <p className="task-project">
-                                            Project: {task.project}
-                                        </p>
-                                    )}
-                                </div>
+<div className="task-table-wrapper">
+    <table className="task-table">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Due date</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-                                {task.description && (
-                                    <p className="task-description">
-                                        {task.description}
-                                    </p>
-                                )}
+        <tbody>
+            {filteredTasks.map((task) => (
+                <tr key={task.id}>
+                    <td>
+                        <div className="task-table-title">
+                            <strong>{task.title}</strong>
 
-                                <div className="task-metadata">
-                                    <div>
-                                        <span>Created</span>
-                                        <time dateTime={task.createdAt || undefined}>
-                                            {formatDateTime(task.createdAt)}
-                                        </time>
-                                    </div>
-                                    <div>
-                                        <span>Due date</span>
-                                        <time dateTime={task.dueDate || undefined}>
-                                            {formatDueDate(task.dueDate)}
-                                        </time>
-                                    </div>
-                                    {task.updatedAt &&
-                                        task.createdAt &&
-                                        new Date(task.updatedAt).getTime() >
-                                            new Date(task.createdAt).getTime() && (
-                                            <div>
-                                                <span>Last updated</span>
-                                                <time dateTime={task.updatedAt}>
-                                                    {formatDateTime(task.updatedAt)}
-                                                </time>
-                                            </div>
-                                        )}
-                                </div>
+                            {task.project && (
+                                <span>Project: {task.project}</span>
+                            )}
 
-                                <div className="task-card-actions">
-                                    <label className="status-change">
-                                        Change status
-                                        <select
-                                            value={task.status || "todo"}
-                                            onChange={(event) =>
-                                                changeStatus(task, event.target.value)
-                                            }
-                                            aria-label={`Change status for ${task.title}`}
-                                        >
-                                            <option value="todo">To do</option>
-                                            <option value="in-progress">Ongoing</option>
-                                            <option value="done">Finished</option>
-                                        </select>
-                                    </label>
+                            {task.description && (
+                                <p>{task.description}</p>
+                            )}
+                        </div>
+                    </td>
 
-                                    <div className="task-buttons">
-                                        <button
-                                            type="button"
-                                            className="secondary-button"
-                                            onClick={() => startEditing(task)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="danger-button"
-                                            onClick={() => handleDelete(task)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
+                    <td>
+                        <select
+                            className={`task-table-status status-${task.status || "todo"}`}
+                            value={task.status || "todo"}
+                            onChange={(event) =>
+                                changeStatus(task, event.target.value)
+                            }
+                            aria-label={`Change status for ${task.title}`}
+                        >
+                            <option value="todo">To do</option>
+                            <option value="in-progress">Ongoing</option>
+                            <option value="done">Finished</option>
+                        </select>
+                    </td>
+
+                    <td>
+                        <span
+                            className={`task-table-priority priority-${task.priority || "medium"}`}
+                        >
+                            {task.priority || "medium"}
+                        </span>
+                    </td>
+
+                    <td>
+                        <time dateTime={task.dueDate || undefined}>
+                            {formatDueDate(task.dueDate)}
+                        </time>
+                    </td>
+
+                    <td>
+                        <time dateTime={task.createdAt || undefined}>
+                            {formatDateTime(task.createdAt)}
+                        </time>
+                    </td>
+
+                    <td>
+                        <div className="task-row-actions">
+                            <button
+                                type="button"
+                                className="secondary-button"
+                                onClick={() => startEditing(task)}
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                type="button"
+                                className="danger-button"
+                                onClick={() => handleDelete(task)}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
                 )}
             </section>
         </main>

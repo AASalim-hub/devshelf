@@ -345,6 +345,151 @@
     overflow-wrap: anywhere;
 }
 
+
+.resource-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-border, #D9E3D7);
+    border-radius: 12px;
+    background: var(--color-surface, #FFFFFF);
+}
+
+.resource-table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.resource-table th {
+    padding: 15px 16px;
+    background: #EAF0E8;
+    color: #365448;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.resource-table td {
+    padding: 17px 16px;
+    border-top: 1px solid #E5EBE3;
+    color: #24332D;
+    font-size: 0.84rem;
+    vertical-align: middle;
+}
+
+.resource-table tbody tr {
+    transition: background 0.18s ease;
+}
+
+.resource-table tbody tr:hover {
+    background: #F7F8F2;
+}
+
+.resource-table-title {
+    display: flex;
+    min-width: 140px;
+    max-width: 230px;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.resource-table-title strong {
+    color: #24332D;
+    font-size: 0.88rem;
+    overflow-wrap: anywhere;
+}
+
+.resource-table-title span {
+    display: -webkit-box;
+    overflow: hidden;
+    color: #748078;
+    font-size: 0.77rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.resource-table-url {
+    display: block;
+    max-width: 210px;
+    overflow: hidden;
+    color: #0D594A;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.resource-table-url:hover {
+    text-decoration: underline;
+}
+
+.resource-type-label,
+.resource-status-label {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    padding: 6px 9px;
+    border-radius: 7px;
+    font-size: 0.74rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.resource-type-label {
+    background: #EAF0E8;
+    color: #315A48;
+    text-transform: capitalize;
+}
+
+.resource-status-label.is-saved {
+    background: #E8F1E8;
+    color: #286341;
+}
+
+.resource-status-label.is-updated {
+    background: #F5EBC9;
+    color: #765716;
+}
+
+.resource-table-date {
+    display: block;
+    min-width: 135px;
+    color: #65736A;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+.resource-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.resource-row-actions button {
+    min-height: 34px;
+    padding: 7px 10px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+    .resource-history {
+        padding: 16px;
+    }
+
+    .resource-filters {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .resource-table th,
+    .resource-table td {
+        padding: 13px 12px;
+    }
+}
+
 @media (max-width: 950px) {
     .resource-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));

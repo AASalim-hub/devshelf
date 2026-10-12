@@ -383,88 +383,112 @@ function SnippetPage() {
                         </p>
                     </div>
                 ) : (
-                    <div className="snippet-grid">
-                        {filteredSnippets.map((snippet) => (
-                            <article className="snippet-card" key={snippet.id}>
-                                <div className="snippet-card-top">
-                                    <span className="language-pill">
-                                        {snippet.language || "other"}
-                                    </span>
-                                    <span className="status-pill">
-                                        {snippet.updatedAt &&
-                                        snippet.createdAt &&
-                                        new Date(snippet.updatedAt).getTime() >
-                                            new Date(snippet.createdAt).getTime()
-                                            ? "Updated"
-                                            : "Saved"}
-                                    </span>
-                                </div>
+<div className="snippet-table-wrapper">
+    <table className="snippet-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Language</th>
+                <th>Tags</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-                                <h3>{snippet.title}</h3>
+        <tbody>
+            {filteredSnippets.map((snippet) => {
+                const wasUpdated =
+                    snippet.updatedAt &&
+                    snippet.createdAt &&
+                    new Date(snippet.updatedAt).getTime() >
+                        new Date(snippet.createdAt).getTime();
 
+                const tags = getTags(snippet.tags);
+
+                return (
+                    <tr key={snippet.id}>
+                        <td>
+                            <div className="snippet-table-title">
+                                <strong>{snippet.title}</strong>
                                 {snippet.description && (
-                                    <p className="snippet-description">
-                                        {snippet.description}
-                                    </p>
+                                    <span>{snippet.description}</span>
                                 )}
+                                <button
+                                    type="button"
+                                    className="snippet-code-toggle"
+                                    onClick={() => copyCode(snippet.code || "")}
+                                >
+                                    Copy code
+                                </button>
+                            </div>
+                        </td>
 
-                                {getTags(snippet.tags).length > 0 && (
-                                    <div className="snippet-tags">
-                                        {getTags(snippet.tags).map((tag, index) => (
-                                            <span key={`${tag}-${index}`}>#{tag}</span>
-                                        ))}
-                                    </div>
+                        <td>
+                            <span className="snippet-language-label">
+                                {snippet.language || "other"}
+                            </span>
+                        </td>
+
+                        <td>
+                            <div className="snippet-table-tags">
+                                {tags.length ? (
+                                    tags.map((tag, index) => (
+                                        <span key={`${tag}-${index}`}>
+                                            #{tag}
+                                        </span>
+                                    ))
+                                ) : (
+                                    <span className="snippet-no-tags">No tags</span>
                                 )}
+                            </div>
+                        </td>
 
-                                <pre className="snippet-code">
-                                    <code>{snippet.code}</code>
-                                </pre>
+                        <td>
+                            <span
+                                className={`snippet-status-label ${
+                                    wasUpdated ? "is-updated" : "is-saved"
+                                }`}
+                            >
+                                {wasUpdated ? "Updated" : "Saved"}
+                            </span>
+                        </td>
 
-                                <div className="snippet-date">
-                                    <span>Created</span>
-                                    <time dateTime={snippet.createdAt || undefined}>
-                                        {formatDateTime(snippet.createdAt)}
-                                    </time>
-                                </div>
+                        <td>
+                            <time
+                                className="snippet-table-date"
+                                dateTime={snippet.createdAt || undefined}
+                            >
+                                {formatDateTime(snippet.createdAt)}
+                            </time>
+                        </td>
 
-                                {snippet.updatedAt &&
-                                    snippet.createdAt &&
-                                    new Date(snippet.updatedAt).getTime() >
-                                        new Date(snippet.createdAt).getTime() && (
-                                        <div className="snippet-date">
-                                            <span>Last updated</span>
-                                            <time dateTime={snippet.updatedAt}>
-                                                {formatDateTime(snippet.updatedAt)}
-                                            </time>
-                                        </div>
-                                    )}
+                        <td>
+                            <div className="snippet-row-actions">
+                                <button
+                                    type="button"
+                                    className="secondary-button"
+                                    onClick={() => startEditing(snippet)}
+                                >
+                                    Edit
+                                </button>
 
-                                <div className="snippet-actions">
-                                    <button
-                                        type="button"
-                                        className="secondary-button"
-                                        onClick={() => copyCode(snippet.code || "")}
-                                    >
-                                        Copy code
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="secondary-button"
-                                        onClick={() => startEditing(snippet)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="danger-button"
-                                        onClick={() => handleDelete(snippet)}
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
+                                <button
+                                    type="button"
+                                    className="danger-button"
+                                    onClick={() => handleDelete(snippet)}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                );
+            })}
+        </tbody>
+    </table>
+</div>
+
                 )}
             </section>
         </main>
