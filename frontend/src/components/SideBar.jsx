@@ -1,56 +1,69 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./SideBar.css";
 
 function SideBar() {
-  return (
-    <aside className="sidebar">
+    const navigate = useNavigate();
 
-      <div className="sidebar-logo">
-        <h2>DevShelf</h2>
-      </div>
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userName");
 
-      <nav className="sidebar-nav">
+        navigate("/login", { replace: true });
+    };
 
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? "sidebar-link active" : "sidebar-link"
-          }
-        >
-          Dashboard
-        </NavLink>
+    return (
+        <aside className="sidebar">
+            <div className="sidebar-logo">
+                <h2>DevShelf</h2>
+            </div>
 
-        <NavLink
-          to="/resources"
-          className={({ isActive }) =>
-            isActive ? "sidebar-link active" : "sidebar-link"
-          }
-        >
-          Resources
-        </NavLink>
+            <nav className="sidebar-nav">
+                <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                        isActive ? "sidebar-link active" : "sidebar-link"
+                    }
+                >
+                    Dashboard
+                </NavLink>
 
-        <NavLink
-          to="/snippet"
-          className={({ isActive }) =>
-            isActive ? "sidebar-link active" : "sidebar-link"
-          }
-        >
-          Snippets
-        </NavLink>
+                <NavLink
+                    to="/resources"
+                    className={({ isActive }) =>
+                        isActive ? "sidebar-link active" : "sidebar-link"
+                    }
+                >
+                    Resources
+                </NavLink>
 
-        <NavLink
-          to="/task"
-          className={({ isActive }) =>
-            isActive ? "sidebar-link active" : "sidebar-link"
-          }
-        >
-          Tasks
-        </NavLink>
+                <NavLink
+                    to="/snippet"
+                    className={({ isActive }) =>
+                        isActive ? "sidebar-link active" : "sidebar-link"
+                    }
+                >
+                    Snippets
+                </NavLink>
 
-      </nav>
+                <NavLink
+                    to="/task"
+                    className={({ isActive }) =>
+                        isActive ? "sidebar-link active" : "sidebar-link"
+                    }
+                >
+                    Tasks
+                </NavLink>
+            </nav>
 
-    </aside>
-  );
+            <button
+                type="button"
+                className="sidebar-logout"
+                onClick={handleLogout}
+            >
+                Log out
+            </button>
+        </aside>
+    );
 }
 
 export default SideBar;
