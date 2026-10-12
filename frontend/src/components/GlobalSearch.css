@@ -2,9 +2,9 @@
 .global-search {
     position: relative;
     z-index: 50;
-    width: 100%;
-    max-width: 680px;
-    margin-bottom: 28px;
+    width: min(100%, 620px);
+    min-width: 0;
+    margin: 0;
 }
 
 .global-search-label {
@@ -153,6 +153,47 @@
 .global-search-result-arrow {
     color: #0D594A;
     font-weight: 800;
+}
+
+.global-search-label {
+    color: var(--color-text-secondary);
+    font-size: 0.76rem;
+    letter-spacing: 0.02em;
+}
+
+.global-search-control {
+    min-height: 48px;
+    border-radius: 13px;
+}
+
+.global-search-results {
+    z-index: 200;
+    overflow-x: hidden;
+}
+
+.global-search-result {
+    min-width: 0;
+}
+
+.global-search-result:focus-visible {
+    outline-offset: -3px;
+    background: #F2F6EF;
+}
+
+@media (max-width: 768px) {
+    .global-search {
+        width: 100%;
+    }
+}
+
+@media (max-width: 560px) {
+    .global-search-control {
+        min-height: 46px;
+    }
+
+    .global-search-results {
+        max-height: 60vh;
+    }
 }
 
 @media (max-width: 600px) {
