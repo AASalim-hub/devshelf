@@ -163,37 +163,48 @@
 .quick-actions-list {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+    gap: 16px;
 }
 
 .quick-action-item {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 14px;
     min-width: 0;
-    padding: 17px;
+    min-height: 105px;
+    padding: 20px;
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: 14px;
     background: #FCFCF9;
+    color: var(--color-text);
     text-decoration: none;
-    transition: border-color var(--transition),
-                background var(--transition),
-                transform var(--transition);
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .quick-action-item:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: var(--color-primary);
     background: #F0F5EF;
+    box-shadow: 0 8px 20px rgb(7 63 53 / 7%);
 }
+
+.quick-action-item:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
 
 .quick-action-symbol {
     display: grid;
     place-items: center;
-    width: 39px;
-    height: 39px;
-    flex: 0 0 39px;
-    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 12px;
     background: var(--color-primary-soft);
     color: var(--color-primary);
     font-size: 1rem;
@@ -205,22 +216,31 @@
     min-width: 0;
     flex: 1;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
 }
 
 .quick-action-item strong {
-    font-size: 0.88rem;
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
 .quick-action-item small {
     color: var(--color-text-secondary);
-    font-size: 0.77rem;
-    line-height: 1.5;
+    font-size: 0.78rem;
+    line-height: 1.55;
 }
 
+
 .quick-action-arrow {
+    flex: 0 0 auto;
     color: var(--color-primary);
     font-weight: 800;
+    transition: transform 0.2s ease;
+}
+
+.quick-action-item:hover .quick-action-arrow {
+    transform: translateX(3px);
 }
 
 
