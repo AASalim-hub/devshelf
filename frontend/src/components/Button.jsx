@@ -1,14 +1,23 @@
 import "./Button.css";
-function Button({ children, variant = "primary", type = "button", onClick, className=""}) {
-  return (
-    <button
-      type={type}
-      className={`btn btn-${variant} ${className}`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
+
+function Button({
+    children,
+    variant = "primary",
+    type = "button",
+    onClick,
+    className = "",
+    disabled = false
+}) {
+    return (
+        <button
+            type={type}
+            className={`btn btn-${variant} ${className}`}
+            onClick={onClick}
+            disabled={disabled}
+        >
+            {children}
+        </button>
+    );
 }
 
 export default Button;
