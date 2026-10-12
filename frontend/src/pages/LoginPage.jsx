@@ -1,12 +1,15 @@
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import api, { getApiError } from "../services/api";
 import "./LoginPage.css";
 
 function LoginPage() {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const successMessage = location.state?.successMessage;
 
     const [formData, setFormData] = useState({
         email: "",
@@ -88,6 +91,12 @@ function LoginPage() {
                     Welcome back! Log in to your DevShelf account to continue.
                 </p>
 
+                {successMessage && (
+    <div className="login-success" role="status">
+        {successMessage}
+    </div>
+)}
+
                 {submitError && (
                     <div className="login-error" role="alert">
                         {submitError}
@@ -125,14 +134,51 @@ function LoginPage() {
                                 onChange={handleChange}
                             />
 
-                            <button
-                                type="button"
-                                className="password-visibility"
-                                onClick={() => setShowPassword((value) => !value)}
-                                aria-label={showPassword ? "Hide password" : "Show password"}
-                            >
-                                {showPassword ? "Hide" : "Show"}
-                            </button>
+                            
+<button
+    type="button"
+    className="password-visibility"
+    onClick={() => setShowPassword((value) => !value)}
+    aria-label={showPassword ? "Hide password" : "Show password"}
+    title={showPassword ? "Hide password" : "Show password"}
+>
+    {showPassword ? (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M3 3l18 18" />
+            <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+            <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.3 4.5 9 7-.3 1.1-1.1 2.5-2.4 3.7" />
+            <path d="M6.2 6.2C3.9 7.7 2.4 10 2 12c.7 2.5 4 7 10 7 1 0 2-.2 2.9-.5" />
+        </svg>
+    ) : (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+            <circle cx="12" cy="12" r="3" />
+        </svg>
+    )}
+</button>
+
                         </div>
 
                         {errors.password && (

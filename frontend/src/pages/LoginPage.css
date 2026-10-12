@@ -76,12 +76,22 @@
 
 .password-visibility {
     position: absolute;
-    right: 3px;
-    background: none;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
     border: none;
+    background: transparent;
+    color: var(--color-text-secondary);
     cursor: pointer;
-    font-size: 16px;
-    padding: 0px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.password-visibility:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
 }
 
 /* Input focus effect */
