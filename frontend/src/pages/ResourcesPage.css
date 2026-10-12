@@ -157,12 +157,14 @@
 }
 
 .primary-button {
-    background: #4f46e5;
-    color: #fff;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 10px rgb(13 89 74 / 14%);
 }
 
-.primary-button:hover {
-    background: #4338ca;
+.primary-button:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    box-shadow: 0 6px 15px rgb(13 89 74 / 20%);
 }
 
 .secondary-button {
@@ -189,7 +191,7 @@
     min-height: auto;
     padding: 6px 0;
     background: transparent;
-    color: #4f46e5;
+    color: var(--color-primary);
 }
 
 .primary-button:disabled,
