@@ -1,134 +1,164 @@
-import Button from "../components/Button";
-import { Link } from "react-router-dom";
-import "./LoginPage.css";
+
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import api, { getApiError } from "../services/api";
+import "./LoginPage.css";
+
 function LoginPage() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState("");
-    const [loginData, setLoginData] = useState({
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
         email: "",
-        password:""
+        password: ""
     });
 
-    const[errors, setErrors] = useState({
-        email:"",
-        password:""
-    })
+    const [errors, setErrors] = useState({});
+    const [submitError, setSubmitError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const loginHandler = (event) => {
-        const {name, value} = event.target
-        
-        setLoginData({
-            ...loginData,
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormData((previous) => ({
+            ...previous,
             [name]: value
+        }));
 
-        })
+        setErrors((previous) => ({
+            ...previous,
+            [name]: ""
+        }));
 
-        if (errors[name]) {
-            setErrors((correctErrors) => ({
-                ...correctErrors,
-                [name]: ""
-            }));
-        }
-    }
+        setSubmitError("");
+    };
 
-    const validateLogin = () => {
-        let valid = true;
-        let newErrors = {email: "", password: "" };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-        
-        if (!loginData.email.endsWith("@gmail.com")) {
-            newErrors.email = "Email must be a valid @gmail.com address.";
-            valid = false;
+        const newErrors = {};
+
+        if (!formData.email.trim()) {
+            newErrors.email = "Email is required.";
         }
 
-        if (loginData.password.length < 8) {
-            newErrors.password = "Password must be at least 8 characters long.";
-            valid = false;
+        if (!formData.password) {
+            newErrors.password = "Password is required.";
         }
 
         setErrors(newErrors);
-        
-        return valid;
-    }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        const isLoginValid = validateLogin();
+        if (Object.keys(newErrors).length > 0) {
+            return;
+        }
 
-        if (isLoginValid) {
-            setSubmitStatus(`Login  successfully.`);
+        setLoading(true);
+        setSubmitError("");
 
-            setLoginData({ email: "", password: "" });
-        } else {
-            setSubmitStatus("");
-            console.log('Login request was blocked due to errors.');
+        try {
+            const response = await api.post("/api/auth/login", {
+                email: formData.email.trim(),
+                password: formData.password
+            });
+
+            const { token, userName } = response.data;
+
+            if (!token) {
+                throw new Error("The server did not return an authentication token.");
+            }
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("userName", userName || "");
+
+            navigate("/", { replace: true });
+        } catch (error) {
+            setSubmitError(getApiError(error));
+        } finally {
+            setLoading(false);
         }
     };
 
-    const showPasswordToggle = () => {
-        setShowPassword((show) => !show);
-    }
-
-    return(
+    return (
         <div className="login-page">
             <div className="login-card">
                 <h1 className="login-title">Sign In</h1>
 
-                <form onSubmit={handleSubmit}>
-                    <p className="login-description">Welcome back! Log in to your DevShelf account to continue.</p>
-                    
+                <p className="login-description">
+                    Welcome back! Log in to your DevShelf account to continue.
+                </p>
 
-                        {submitStatus && (
-                    <div className="login-success">
-                        {submitStatus}
+                {submitError && (
+                    <div className="login-error" role="alert">
+                        {submitError}
                     </div>
-                )}<div className="login-field">
-                        <label htmlFor="email">Email:</label>
-                        <input 
+                )}
+
+                <form onSubmit={handleSubmit} noValidate>
+                    <div className="login-field">
+                        <label htmlFor="email">Email</label>
+
+                        <input
                             id="email"
                             type="email"
                             name="email"
-                            value={loginData.email}
-                            onChange={loginHandler} 
+                            autoComplete="email"
+                            value={formData.email}
+                            onChange={handleChange}
                         />
-                        <p className="error-msg">{errors.email}</p>
+
+                        {errors.email && (
+                            <p className="error-msg">{errors.email}</p>
+                        )}
                     </div>
 
-                <div className="login-field">
-                    <label htmlFor="password">Password:</label>
-                    <div className="password-props">
-                    <input 
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        value={loginData.password} 
-                        onChange={loginHandler}
-                    />
+                    <div className="login-field">
+                        <label htmlFor="password">Password</label>
 
-                    <button
+                        <div className="password-props">
+                            <input
+                                id="password"
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                autoComplete="current-password"
+                                value={formData.password}
+                                onChange={handleChange}
+                            />
+
+                            <button
                                 type="button"
-                                onClick={showPasswordToggle}
                                 className="password-visibility"
+                                onClick={() => setShowPassword((value) => !value)}
+                                aria-label={showPassword ? "Hide password" : "Show password"}
                             >
-                                {showPassword ? "👁️" : "👁️"}
+                                {showPassword ? "Hide" : "Show"}
                             </button>
                         </div>
 
-                    <p className="error-msg">{errors.password}</p>
-                   
-                </div>
-                
-                
-                <Button type="submit" variant="primary" className="login-button">Sign in</Button>
+                        {errors.password && (
+                            <p className="error-msg">{errors.password}</p>
+                        )}
+                    </div>
+
+                    <Button
+                        type="submit"
+                        variant="primary"
+                        className="login-button"
+                        disabled={loading}
+                    >
+                        {loading ? "Signing in..." : "Sign in"}
+                    </Button>
                 </form>
+
                 <p className="auth-redirect">
-                    Don't have an account?  <Link className="auth-link" to="/register">Sign up</Link>
+                    Don't have an account?{" "}
+                    <Link className="auth-link" to="/register">
+                        Sign up
+                    </Link>
                 </p>
             </div>
         </div>
     );
 }
 
-export default LoginPage
+export default LoginPage;

@@ -1,176 +1,200 @@
+
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import api, { getApiError } from "../services/api";
 import "./RegisterPage.css";
-import {Link} from "react-router-dom";
 
 function RegisterPage() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState("");
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         username: "",
         email: "",
         password: ""
     });
 
-    const [error, setError] = useState({
-        username: "",
-        email: "",
-        password: ""
-    });
+    const [errors, setErrors] = useState({});
+    const [submitError, setSubmitError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
 
-        setFormData((updateData) => ({
-            ...updateData,
-            [name]: value,
+        setFormData((previous) => ({
+            ...previous,
+            [name]: value
         }));
 
-        if (error[name]) {
-            setError((correctErrors) => ({
-                ...correctErrors,
-                [name]: ""
-            }));
-        }
+        setErrors((previous) => ({
+            ...previous,
+            [name]: ""
+        }));
 
-        if (submitStatus) {
-        setSubmitStatus("");
-    }
+        setSubmitError("");
+        setSuccessMessage("");
     };
 
-    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    const validateForm = () => {
-        let valid = true;
-        let newErrors = { username: "", email: "", password: "" };
+        const newErrors = {};
 
         if (formData.username.trim().length < 3) {
             newErrors.username = "Username must be at least 3 characters long.";
-            valid = false;
         }
 
-        if (!formData.email.endsWith("@gmail.com")) {
-            newErrors.email = "Email must be a valid @gmail.com address.";
-            valid = false;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+            newErrors.email = "Enter a valid email address.";
         }
 
         if (formData.password.length < 8) {
             newErrors.password = "Password must be at least 8 characters long.";
-            valid = false;
         }
 
-        setError(newErrors);
-        
-        return valid; 
-    };
+        setErrors(newErrors);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        const isFormValid = validateForm();
+        if (Object.keys(newErrors).length > 0) {
+            return;
+        }
 
-        if (isFormValid) {
-            setSubmitStatus(`Welcome, ${formData.username}! Your account has been created successfully.`);
+        setLoading(true);
+        setSubmitError("");
+        setSuccessMessage("");
 
-            setFormData({ username: "", email: "", password: "" });
-        } else {
-            setSubmitStatus("");
-            console.log('Form submission blocked due to errors.');
+        try {
+            const response = await api.post("/api/auth/register", {
+                userName: formData.username.trim(),
+                email: formData.email.trim(),
+                password: formData.password
+            });
+
+            setSuccessMessage(
+                response.data?.message || "Account created. You can now sign in."
+            );
+
+            setFormData({
+                username: "",
+                email: "",
+                password: ""
+            });
+        } catch (error) {
+            setSubmitError(getApiError(error));
+        } finally {
+            setLoading(false);
         }
     };
 
-    const showPasswordToggle = () => {
-        setShowPassword((show) => !show);
-    }
-    return(
+    return (
         <div className="register-page">
             <div className="register-card">
                 <h1>Create an account</h1>
-                <p className="register-description">Create your DevShelf account to get started.</p>
 
-                {submitStatus && (
-                    <div style={{
-                        padding: '12px',
-                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                        border: '1px solid rgb(34, 197, 94)',
-                        borderRadius: '8px',
-                        color: 'rgb(21, 128, 61)',
-                        fontSize: '14px',
-                        marginBottom: '20px',
-                        textAlign: 'center'
-                    }}>
-                        {submitStatus}
+                <p className="register-description">
+                    Create your DevShelf account to get started.
+                </p>
+
+                {submitError && (
+                    <div className="register-error" role="alert">
+                        {submitError}
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit}>
-            
+                {successMessage && (
+                    <div className="register-success" role="status">
+                        {successMessage}
+                        {" "}
+                        <Link to="/login" className="auth-link">
+                            Sign in now
+                        </Link>
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} noValidate>
                     <div className="form-field">
-                         <label htmlFor="username">Username:</label>
-                        <input 
-                        id="username"
-                         type="text"
-                         name="username"
-                        value={formData.username}
-                         onChange={handleChange}/>
-                        <p className="error-msg">{error.username}</p>
+                        <label htmlFor="username">Username</label>
+
+                        <input
+                            id="username"
+                            type="text"
+                            name="username"
+                            autoComplete="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                        />
+
+                        {errors.username && (
+                            <p className="error-msg">{errors.username}</p>
+                        )}
                     </div>
 
                     <div className="form-field">
-                        <label htmlFor="email">Email:</label>
-                        <input 
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}/>
-                        <p className="error-msg"    >{error.email}</p>
+                        <label htmlFor="email">Email</label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            autoComplete="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+
+                        {errors.email && (
+                            <p className="error-msg">{errors.email}</p>
+                        )}
                     </div>
 
                     <div className="form-field">
-                        <label htmlFor="password-input">Password:</label>
-                        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                            <input 
+                        <label htmlFor="password-input">Password</label>
+
+                        <div className="register-password-field">
+                            <input
                                 id="password-input"
-            
                                 type={showPassword ? "text" : "password"}
                                 name="password"
-                                placeholder="••••••••"
+                                autoComplete="new-password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                style={{ paddingRight: '40px' }}
+                                placeholder="At least 8 characters"
                             />
+
                             <button
                                 type="button"
-                                onClick={showPasswordToggle}
-                                style={{
-                                    position: 'absolute',
-                                    right: '3px',
-                                    background: 'none',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    fontSize: '16px',
-                                    padding: '0'
-                                }}
+                                className="register-password-toggle"
+                                onClick={() => setShowPassword((value) => !value)}
+                                aria-label={showPassword ? "Hide password" : "Show password"}
                             >
-                                {showPassword ? "👁️" : "👁️"}
+                                {showPassword ? "Hide" : "Show"}
                             </button>
                         </div>
-    
-                        {error.password && <p className="error-msg">{error.password}</p>}
+
+                        {errors.password && (
+                            <p className="error-msg">{errors.password}</p>
+                        )}
                     </div>
 
-                    <Button variant="secondary" type="submit" className={"register-button"}>Sign UP</Button>
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        className="register-button"
+                        disabled={loading}
+                    >
+                        {loading ? "Creating account..." : "Sign up"}
+                    </Button>
                 </form>
 
-
                 <p className="auth-redirect">
-                    Already have an account? <Link to="/login" className="auth-link">Sign In </Link>here
+                    Already have an account?{" "}
+                    <Link to="/login" className="auth-link">
+                        Sign in
+                    </Link>
                 </p>
-
             </div>
         </div>
     );
 }
 
-export default RegisterPage
+export default RegisterPage;

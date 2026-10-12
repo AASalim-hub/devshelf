@@ -140,6 +140,27 @@
   text-decoration: underline;
 }
 
+.login-error,
+.register-error {
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius);
+    background: #fef2f2;
+    color: #991b1b;
+    font-size: 13px;
+}
+
+.register-success {
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius);
+    background: #f0fdf4;
+    color: #166534;
+    font-size: 13px;
+}
+
 /* Smaller screens */
 @media (max-width: 480px) {
   .login-page {

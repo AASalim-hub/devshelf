@@ -1,38 +1,71 @@
 :root {
-  /* Main colors */
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
+    --color-primary: #0D594A;
+    --color-primary-hover: #073F35;
+    --color-primary-soft: #D9E3D7;
 
-  /* Backgrounds */
-  --color-background: #f8fafc;
-  --color-surface: #ffffff;
-  --color-sidebar: #111827;
+    --color-background: #F7F5EE;
+    --color-surface: #FFFFFF;
+    --color-sidebar: #073F35;
 
-  /* Text */
-  --color-text: #111827;
-  --color-text-secondary: #6b7280;
-  --color-text-light: #9ca3af;
+    --color-text: #24332D;
+    --color-text-secondary: #65736A;
+    --color-text-light: #8A958D;
 
-  /* Borders */
-  --color-border: #e5e7eb;
+    --color-border: #D9E3D7;
 
-  /* States */
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-danger: #dc2626;
+    --color-success: #24734F;
+    --color-warning: #A87518;
+    --color-danger: #B94242;
 
-  /* General */
-  --radius: 8px;
-  --transition: 0.2s ease;
+    --color-accent: #D8B85A;
+    --color-accent-soft: #F5EBC9;
+
+    --radius: 12px;
+    --transition: 0.2s ease;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  background: var(--color-background);
-  color: var(--color-text);
-  font-family: Arial, sans-serif;
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+::selection {
+    background: var(--color-primary-soft);
+    color: var(--color-text);
 }

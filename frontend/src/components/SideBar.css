@@ -1,57 +1,89 @@
 .sidebar {
-  width: 240px;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
 
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 18px;
 
-  padding: 24px 16px;
-
-  background: var(--color-sidebar);
-  color: white;
+    background: linear-gradient(180deg, #073F35 0%, #062F29 100%);
+    color: #F7F5EE;
+    border-right: 1px solid rgb(217 227 215 / 15%);
 }
 
 .sidebar-logo {
-  padding: 0 12px;
-  margin-bottom: 40px;
+    padding: 8px 12px 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgb(217 227 215 / 18%);
 }
 
 .sidebar-logo h2 {
-  margin: 0;
+    margin: 0;
+    color: #F7F5EE;
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+}
+
+.sidebar-logo h2::after {
+    content: ".";
+    color: #D8B85A;
 }
 
 .sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
 }
 
 .sidebar-link {
-  padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
 
-  text-decoration: none;
-  color: var(--color-text-light);
+    border: 1px solid transparent;
+    border-radius: 11px;
 
-  border-radius: var(--radius);
+    color: #C4D5CB;
+    font-size: 0.92rem;
+    font-weight: 550;
+    text-decoration: none;
 
-  transition: var(--transition);
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .sidebar-link:hover {
-  background: #1f2937;
-  color: white;
+    background: rgb(217 227 215 / 9%);
+    color: #FFFFFF;
 }
 
 .sidebar-link.active {
-  background: var(--color-primary);
-  color: white;
+    border-color: rgb(216 184 90 / 25%);
+    background: #0D594A;
+    color: #FFFFFF;
+    box-shadow: inset 3px 0 #D8B85A;
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-  }
+    .sidebar {
+        width: 205px;
+        padding: 24px 12px;
+    }
+
+    .sidebar-logo {
+        padding-inline: 8px;
+    }
+
+    .sidebar-link {
+        padding: 12px 10px;
+        font-size: 0.86rem;
+    }
 }
