@@ -223,23 +223,32 @@
     font-weight: 800;
 }
 
+
 .recent-activity-list {
     display: flex;
     flex-direction: column;
+    gap: 0;
 }
 
 .recent-activity-row {
     display: grid;
-    grid-template-columns: 100px minmax(0, 1fr) minmax(160px, auto) 20px;
+    grid-template-columns: 100px minmax(0, 1fr) minmax(150px, auto) 20px;
     align-items: center;
     gap: 16px;
-    padding: 16px 4px;
+    min-width: 0;
+    padding: 18px 10px;
     border-bottom: 1px solid var(--color-border);
+    border-radius: 8px;
     text-decoration: none;
+    transition: background 0.2s ease;
 }
 
 .recent-activity-row:last-child {
     border-bottom: 0;
+}
+
+.recent-activity-row:hover {
+    background: #F5F7F1;
 }
 
 .recent-activity-row:hover strong {
@@ -248,7 +257,7 @@
 
 .recent-type {
     width: fit-content;
-    padding: 5px 9px;
+    padding: 6px 10px;
     border-radius: 7px;
     background: var(--color-primary-soft);
     color: var(--color-primary);
@@ -259,19 +268,28 @@
 .recent-activity-row strong {
     min-width: 0;
     overflow-wrap: anywhere;
-    font-size: 0.88rem;
-    transition: color var(--transition);
+    color: var(--color-text);
+    font-size: 0.9rem;
+    font-weight: 650;
+    transition: color 0.2s ease;
 }
 
 .recent-activity-row time {
     color: var(--color-text-secondary);
     font-size: 0.78rem;
     text-align: right;
+    white-space: nowrap;
 }
 
 .recent-row-arrow {
     color: var(--color-primary);
     font-weight: 800;
+    text-align: right;
+}
+
+.recent-activity-row:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
 }
 
 .dashboard-empty {
@@ -348,26 +366,28 @@
         padding: 18px;
     }
 
-    .recent-activity-row {
-        grid-template-columns: 1fr 20px;
-        gap: 9px 12px;
-    }
+    
+.recent-activity-row {
+    grid-template-columns: minmax(0, 1fr) 20px;
+    gap: 9px 12px;
+    padding: 15px 6px;
+}
 
-    .recent-type {
-        grid-column: 1;
-    }
+.recent-type,
+.recent-activity-row strong,
+.recent-activity-row time {
+    grid-column: 1;
+}
 
-    .recent-activity-row strong {
-        grid-column: 1;
-    }
+.recent-activity-row time {
+    text-align: left;
+    white-space: normal;
+    line-height: 1.5;
+}
 
-    .recent-activity-row time {
-        grid-column: 1;
-        text-align: left;
-    }
+.recent-row-arrow {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+}
 
-    .recent-row-arrow {
-        grid-column: 2;
-        grid-row: 1 / span 3;
-    }
 }
