@@ -1,20 +1,18 @@
 
-# Build the .NET 10 application
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-noble AS build
 WORKDIR /src
 
-COPY server.csproj ./
-RUN dotnet restore server.csproj
+COPY server.csproj .
+RUN dotnet restore
 
 COPY . .
-RUN dotnet publish server.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "server.csproj" -c Release -o /app/publish --no-restore /p:UseAppHost=false
 
-# Run the published application
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble AS final
 WORKDIR /app
 
 COPY --from=build /app/publish .
+ENV ASPNETCORE_URLS=http://+:10000
+EXPOSE 10000
 
-ENV ASPNETCORE_ENVIRONMENT=Production
-
-CMD ["sh", "-c", "dotnet server.dll --urls http://0.0.0.0:${PORT:-10000}"]
+ENTRYPOINT ["dotnet", "server.dll"]
